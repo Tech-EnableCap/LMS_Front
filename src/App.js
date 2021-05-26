@@ -13,10 +13,10 @@ function App() {
   }
   
   const upload = fl => {
-    let frmData = new FormData();
-    frmData.append(
-      "disbursement", fl
-    );
+    let frmData = {
+      "disbursement" : fl
+    };
+  
     axios.post("http://localhost:5000", frmData).then(() => {
       alert("Successfully Uploaded.");
     }).catch(e => {
