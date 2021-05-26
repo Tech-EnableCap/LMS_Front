@@ -12,6 +12,19 @@ function App() {
     ip.click();
   }
   
+  const upload = fl => {
+    let frmData = new FormData();
+    frmData.append(
+      "disbursement", fl
+    );
+    axios.post("http://localhost:5000", frmData).then(() => {
+      alert("Successfully Uploaded.");
+    }).catch(e => {
+      console.log(e);
+      alert("Error occurred.")
+    })
+  }
+
   const disOnChage = (e) => {
     let file = e.target.files[0];
     if(file === undefined)
@@ -23,16 +36,11 @@ function App() {
       return;
     }
     console.log(file);
-    let frmData = new FormData();
-    frmData.append(
-      "disbursement", file, file.name
-    );
-    axios.post("http://localhost:5000", frmData).then(() => {
-      alert("Successfully Uploaded.");
-    }).catch(e => {
-      console.log(e);
-      alert("Error occurred.")
-    })
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      upload(reader.result);
+    };
   }
   
   return (
