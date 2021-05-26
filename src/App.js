@@ -17,6 +17,7 @@ function App() {
       "disbursement" : fl
     };
   
+    console.log(fl);
     axios.post("http://localhost:5000", frmData).then(() => {
       alert("Successfully Uploaded.");
     }).catch(e => {
