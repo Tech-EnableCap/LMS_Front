@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+
+.prfImg {
+  height: 200px;
+  width: 200px;
+}
+
+.sidebar {
+  background-color: rgb(160, 24, 103);;
+  color: #fff;
+  width: 250px;
+  padding: 0px;
+  position: absolute;
+  height: 100%;
+}
+
+.sdHeader {
+  background-color: rgb(212, 47, 111);
+  font-size: 30px;
+  font-weight: 500;
+  height: 50px;
+  padding-top: 10px;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+  display: block;
+  padding: 10px;
+}
+ul li {
+  background-color: rgb(80, 6, 52);
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  font-size: larger;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 400;
+  border-radius: 10px;
+}
+
+ul li:hover {
+  background-color:rgb(102, 16, 66);
+  cursor: pointer;
+  user-select: none;
+}
+
+ul li i {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+  
+}
