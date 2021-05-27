@@ -13,12 +13,17 @@ function App() {
   }
   
   const upload = fl => {
+    let config = {
+      headers: {
+        "cors": "no-cors",
+      }
+    }
     let frmData = {
       "disbursement" : fl
     };
   
     console.log(fl);
-    axios.post("http://localhost:5000", frmData).then(() => {
+    axios.post("http://localhost:5000", frmData,config).then(() => {
       alert("Successfully Uploaded.");
     }).catch(e => {
       console.log(e);
