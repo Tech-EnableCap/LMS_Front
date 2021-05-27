@@ -8,26 +8,7 @@ function SideBar(props) {
             </div>
             <img src={logo} className="prfImg" alt="prf"/>
             <ul>
-                <li onClick={props.handleDis}>
-                <i className="fa fa-upload"></i>
-                 Upload Disbursement File
-                 <input
-                  hidden
-                  id="fileUpload" 
-                  type="file"
-                  onChange={props.upDisOnChange}
-                  />
-                 </li>
-                <li onClick={props.handleEq}>
-                <i className="fa fa-upload"></i> 
-                Upload Candidate Equifax
-                <input
-                  hidden
-                  id="eqFileUpload" 
-                  type="file"
-                  onChange={props.upEqOnChange}
-                  />
-                </li>
+                <li><i className="fa fa-address-card-o"></i> Dashboard</li>
                 <li><i className="fa fa-line-chart"></i> Analysis</li>
                 <li><i className="fa fa-money"></i> Disbursal MIS</li>
                 <li><i className="fa fa-bank"></i> Bank Upload File</li>
