@@ -44,13 +44,13 @@ body {
   text-align: center;
 }
 
-ul {
+.sidebar ul {
   text-decoration: none;
   list-style: none;
   display: block;
   padding: 10px;
 }
-ul li {
+.sidebar ul li {
   background-color: rgb(80, 6, 52);
   margin-top: 20px;
   display: block;
@@ -62,13 +62,13 @@ ul li {
   border-radius: 10px;
 }
 
-ul li:hover {
+.sidebar ul li:hover {
   background-color:rgb(102, 16, 66);
   cursor: pointer;
   user-select: none;
 }
 
-ul li i {
+.sidebar ul li i {
   display: block;
   width: 100%;
   text-align: center;
@@ -82,4 +82,23 @@ ul li i {
   height: 100%;
   position: absolute;
   z-index: 1;
+  width: 80vw;
+}
+
+.dashboard .searchBar {
+  color: white;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  width: fit-content;
+}
+
+.dashboard .searchBar ul {
+  list-style: none;
+}
+
+.dashboard .searchBar ul li {
+  display: inline-block;
+  color: white;
+  margin: 7px;
 }
