@@ -18,7 +18,16 @@ function SideBar(props) {
                   onChange={props.upDisOnChange}
                   />
                  </li>
-                <li><i className="fa fa-upload"></i> Upload Candidate Equifax</li>
+                <li onClick={props.handleEq}>
+                <i className="fa fa-upload"></i> 
+                Upload Candidate Equifax
+                <input
+                  hidden
+                  id="eqFileUpload" 
+                  type="file"
+                  onChange={props.upEqOnChange}
+                  />
+                </li>
                 <li><i className="fa fa-line-chart"></i> Analysis</li>
                 <li><i className="fa fa-money"></i> Disbursal MIS</li>
                 <li><i className="fa fa-bank"></i> Bank Upload File</li>
