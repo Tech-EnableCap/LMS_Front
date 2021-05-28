@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Sidebar
        />
-        <Dashboard />
+      <Dashboard />
     </div>
   );
 }

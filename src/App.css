@@ -27,7 +27,7 @@ body {
 .sidebar {
   background-color: rgb(160, 24, 103);;
   color: #fff;
-  width: 250px;
+  width: 200px;
   padding: 0px;
   position: absolute;
   top: 0px;
@@ -78,11 +78,11 @@ body {
 
 .dashboard {
   /*background-color:rgb(80, 6, 52);*/
-  transform: translateX(250px);
+  transform: translateX(200px);
   height: 100%;
   position: absolute;
   z-index: 1;
-  width: 80vw;
+  width: 90vw;
 }
 
 .dashboard .searchBar {
@@ -101,4 +101,62 @@ body {
   display: inline-block;
   color: white;
   margin: 7px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 90%;
+}
+
+table thead {
+  background-color:rgb(14, 13, 13);
+}
+
+table thead th {
+  padding: 10px 0 10px 0;
+  color: white;
+}
+
+table tbody td {
+  padding: 10px 0 10px 0;
+  text-align: center;
+  color: rgb(200, 199, 199);
+}
+
+table tbody tr:nth-child(2n) {
+  background-color:rgb(37, 37, 37);
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.table .tbHeader {
+  color:rgb(200, 199, 199);
+  /*margin-left:100px;*/
+  width: 89%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navStl {
+  display:inline-block;
+  height:32px;
+  width:30px;
+  background-color:black;
+  margin:5px;
+  font-size:23px;
+  text-align:center;
+  border-radius:10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.navStl:hover {
+  background-color:rgb(27, 27, 27);
 }

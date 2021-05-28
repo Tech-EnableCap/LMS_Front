@@ -1,13 +1,18 @@
 import RepUp from './uploadWidget';
+import SearchBar from './searchBar.js';
+import DtTable from './table';
 import axios from 'axios';
+import {tbData} from "./data";
+import {useState, useEffect} from 'react';
 
 function Dashboard() {
+    const [tbDt, setTbDt] = useState();
     //Upload file...................
     const upload = (key, fl) => {
         let config = {
-        headers: {
-            "cors": "no-cors",
-        }
+            headers: {
+                "cors": "no-cors",
+            }
         };
 
         let frmData = {};
@@ -15,7 +20,7 @@ function Dashboard() {
     
         console.log(frmData);
         axios.post("http://localhost:5000", frmData, config).then(() => {
-        alert("Successfully Uploaded.");
+         alert("Successfully Uploaded.");
         }).catch(e => {
         console.log(e);
         alert("Error occurred.")
@@ -63,36 +68,80 @@ function Dashboard() {
         };
         //==========================
     }
+    //==================================    
+
+    //Handle table navigation...........
+    const hndlNavPrv = () => {
+        alert("There is no data.");
+    }
+    const hndlNavNxt = () => {
+        alert("There is no data.");
+    }
+    //==================================
+    let lid, fname, lname, stDate, enDate, dtCat="Sanc";
+    //Handle searchBar Input Changes....
+    const lidCh = (e) => {
+        lid = e.target.value;
+    }
+
+    const fnameCh = (e) => {
+        fname = e.target.value;
+    }
+
+    const lnameCh = (e) => {
+        lname = e.target.value;
+    }
+
+    const stDateCh = (e) => {
+        stDate = e.target.value;
+    }
+
+    const enDateCh = (e) => {
+        enDate = e.target.value;
+    }
+
+    const dtCatCh = (e) => {
+        dtCat = e.target.value;
+    }
     //==================================
 
     //Search raw uploaded record........
     const search = () => {
-        alert("Searching...");
+        let srCr = {};
+        let canSend = true;
+        if(lid) {
+            alert("lid");
+            srCr["lid"] = lid;
+        }
+        else if(fname || lname) {
+            alert("name");
+            srCr["fname"] = fname;
+            srCr["lname"] = lname;
+        }
+        else if(stDate && enDate) {
+            alert("date");
+            srCr["stDate"] = stDate;
+            srCr["endDate"] = enDate;
+            srCr["cat"] = dtCat;
+        }
+        else {
+            alert("Invalid search criteria.");
+            canSend = false;
+        }
+        if(canSend) {
+            //srCr["idx"] = "0";
+            axios.post('http://localhost:5000/viewupload?idx=0', srCr)
+                .then(res => {
+                    alert("OK");
+                    console.log(res);
+                })
+                .catch(err => {
+                    alert("Err");
+                    console.log(err);
+                });
+        }
     }
     //==================================
-    let style={
-        borderRight:"2px solid red",
-        borderLeft:"2px solid red",
-        borderTop:"2px solid red",
-        borderRadius:"5px",
-        display: "inline-block",
-        margin: "3px"
-    };
-
-    let srStl = {
-        backgroundColor:"rgba(87,87, 85, 0.2)",
-        paddingLeft:"20px",
-        paddingRight:"20px",
-        paddingTop:"3px",
-        paddingBottom:"3px",
-    }
-
-    let btnStl = {
-        width:"75px",
-        height:"40px",
-        borderRadius:"20px",
-        display: "inline-block"
-    }
     return (
         <div className="dashboard">
             <div className="dashHeader">
@@ -108,26 +157,21 @@ function Dashboard() {
                 />
             </div>
             <div className="dashBody">
-                <div className="searchBar" style={srStl}>
-                    <h2>Search using...</h2>
-                    <ul>
-                        <div style={style}>
-                            <li><label>Loan ID</label><br/> <input type="text" id="srLID" /></li>
-                        </div>
-                        <div style={style}>
-                        <li><label>First Name</label><br/> <input type="text" id="fname" /></li>
-                        <li><label>Last Name</label><br/> <input type="text" id="lname" /></li>
-                        </div>
-                        <div style={style}>
-                        <li><label>Start Date</label><br/> <input type="date" id="stDate" /></li>
-                        <li><label>End Date</label><br/> <input type="date" id="enDate" /></li>
-                        </div><br/>
-                        <li style={{
-                            display:"block",
-                            textAlign: "right"
-                        }}><button style={btnStl} onClick={search}>Search</button></li>
-                    </ul>
-                </div>
+                <SearchBar 
+                hndlSearch={search}
+                lidChange={lidCh} 
+                fnameChange={fnameCh} 
+                lnameChange={lnameCh} 
+                stDateChange={stDateCh} 
+                enDateChange={enDateCh} 
+                dtCatChange={dtCatCh} 
+                />
+                <DtTable 
+                Data={tbDt}
+                tbName="Uploaded File"
+                handlNavPrv={hndlNavPrv}
+                handlNavNxt={hndlNavNxt}
+                />
             </div>
         </div>
     );
