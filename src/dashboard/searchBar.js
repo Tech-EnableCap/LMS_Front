@@ -35,12 +35,12 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                     <li><label>Last Name</label><br/> <input type="text" id="lname" onChange={props.lnameChange}/></li>
                 </div>
                 <div style={style}>
-                    <li><label>Start Date</label><br/> <input type="date" id="stDate" onChange={props.stDateChange}/></li>
-                    <li><label>End Date</label><br/> <input type="date" id="enDate" onChange={props.enDateChange}/></li>
+                    <li><label>Start Date</label><br/> <input type="date" id="stDate" onChange={props.stDateChange} /></li>
+                    <li><label>End Date</label><br/> <input type="date" id="enDate" onChange={props.enDateChange} /></li>
                     <li>
                         <label>Date Category</label><br/> 
                         <select name="cat" id="dtCat" onChange={props.dtCatChange}>
-                            <option value="Sanc">Sanction Date</option>
+                            <option value="sacntion_date">Sanction Date</option>
                             <option value="LoanApp">Loan Application Date</option>
                             <option value="DisDt">Disburse Date</option>
                             <option value="FApprv">Final Approval Date</option>

@@ -103,11 +103,35 @@ body {
   margin: 7px;
 }
 
+.dtTab {
+  width: 85vw;
+  height: 33vw;
+  overflow-x: auto;
+  overflow-y: auto;
+  margin: 0 auto 0 auto;
+}
+
+.dtTab::after {
+  content: "";
+}
+
+.dtTab::-webkit-scrollbar {
+  width:5px;
+}
+.dtTab::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.dtTab::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
-  width: 90%;
+  width: 100%;
+  table-layout: auto;
 }
 
 table thead {
@@ -120,7 +144,7 @@ table thead th {
 }
 
 table tbody td {
-  padding: 10px 0 10px 0;
+  /*padding: 1px 0 1px 0;*/
   text-align: center;
   color: rgb(200, 199, 199);
 }
@@ -149,6 +173,7 @@ table tbody tr:nth-child(2n) {
   height:32px;
   width:30px;
   background-color:black;
+  color:antiquewhite;
   margin:5px;
   font-size:23px;
   text-align:center;
@@ -159,4 +184,8 @@ table tbody tr:nth-child(2n) {
 
 .navStl:hover {
   background-color:rgb(27, 27, 27);
+}
+
+.hide {
+  display: none;
 }

@@ -5,8 +5,30 @@ import axios from 'axios';
 import {tbData} from "./data";
 import {useState, useEffect} from 'react';
 
-function Dashboard() {
-    const [tbDt, setTbDt] = useState();
+let lid, fname, lname, stDate, enDate, dtCat="sacntion_date", idx=0;
+let willShow = false;
+function Dashboard(props) {
+    const [dName, setDName] = useState();
+    const [tbDt, setTbDt] = useState({});
+    useEffect(() => {
+        if(props.dashName === "dash") {
+            setDName("Uploaded File");
+            willShow = false;
+            console.log("hi");
+        }
+        else if(props.dashName === "dis") {
+            setDName("Disbursal MIS");
+            willShow = false;
+        }
+        else if(props.dashName === "bank") {
+            setDName("Bank Uploaded File");
+            willShow = false;
+        }
+        setTbDt({});
+        //search();
+    }, [props.dashName]);
+
+
     //Upload file...................
     const upload = (key, fl) => {
         let config = {
@@ -70,15 +92,7 @@ function Dashboard() {
     }
     //==================================    
 
-    //Handle table navigation...........
-    const hndlNavPrv = () => {
-        alert("There is no data.");
-    }
-    const hndlNavNxt = () => {
-        alert("There is no data.");
-    }
-    //==================================
-    let lid, fname, lname, stDate, enDate, dtCat="Sanc";
+    
     //Handle searchBar Input Changes....
     const lidCh = (e) => {
         lid = e.target.value;
@@ -109,17 +123,18 @@ function Dashboard() {
     const search = () => {
         let srCr = {};
         let canSend = true;
+        //alert(lid + " " + fname + " " + " " + lname + " " + stDate + " " + enDate + " " + dtCat)
         if(lid) {
-            alert("lid");
+            //alert("lid");
             srCr["lid"] = lid;
         }
         else if(fname || lname) {
-            alert("name");
+            //alert("name");
             srCr["fname"] = fname;
             srCr["lname"] = lname;
         }
         else if(stDate && enDate) {
-            alert("date");
+            //alert("date");
             srCr["stDate"] = stDate;
             srCr["endDate"] = enDate;
             srCr["cat"] = dtCat;
@@ -130,10 +145,32 @@ function Dashboard() {
         }
         if(canSend) {
             //srCr["idx"] = "0";
-            axios.post('http://localhost:5000/viewupload?idx=0', srCr)
+            let url;
+            if(props.dashName === "dash") 
+                url = "http://localhost:5000/viewupload?idx=" + idx;
+            else if(props.dashName === "dis") 
+                url = "http://localhost:5000/dmis?idx=" + idx;
+            else if(props.dashName === "bank") 
+                url = "http://localhost:5000/bankupload?idx=" + idx;
+            axios.post(url, srCr)
                 .then(res => {
-                    alert("OK");
-                    console.log(res);
+                    //alert("OK");
+                    //console.log(res);
+                    if(!("data" in res.data.msg)) {
+                        alert (res.data.msg.error);
+                        setTbDt({});
+                        return;
+                    }
+                    let col = res.data.msg.clName;
+                    let data = res.data.msg.data;
+                    let dt = {}
+                    
+                    dt["clName"] = col;
+                    dt["data"] = data;
+                    //console.log(res);
+                    willShow = true;
+                    //alert("Fetched...");
+                    setTbDt(dt);
                 })
                 .catch(err => {
                     alert("Err");
@@ -142,6 +179,24 @@ function Dashboard() {
         }
     }
     //==================================
+    const srClick = () => {
+        idx = 0;
+        search()
+    }
+    const srNxt = () => {
+        idx++;
+        search();
+    }
+    const srPrv = () => {
+        idx--;
+        search();
+    }
+
+/*    useEffect(() => {
+        alert(willShow);
+        setShow(willShow);
+    }, [tbDt]);*/
+
     return (
         <div className="dashboard">
             <div className="dashHeader">
@@ -158,7 +213,7 @@ function Dashboard() {
             </div>
             <div className="dashBody">
                 <SearchBar 
-                hndlSearch={search}
+                hndlSearch={srClick}
                 lidChange={lidCh} 
                 fnameChange={fnameCh} 
                 lnameChange={lnameCh} 
@@ -168,9 +223,10 @@ function Dashboard() {
                 />
                 <DtTable 
                 Data={tbDt}
-                tbName="Uploaded File"
-                handlNavPrv={hndlNavPrv}
-                handlNavNxt={hndlNavNxt}
+                show={willShow}
+                tbName={dName}
+                handlNavPrv={srPrv}
+                handlNavNxt={srNxt}
                 />
             </div>
         </div>

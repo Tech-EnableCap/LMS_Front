@@ -5,13 +5,30 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Dashboard from './dashboard/dashboard';
 
-function App() {  
 
+function App() {  
+  const [sdBarSt, setSd] = useState("dash")
+
+  const onClickBank = () => {
+    setSd("bank");
+  }
+  const onClickDis = () => {
+    setSd("dis");
+  }
+  const onClickDash = () => {
+    setSd("dash");
+  }
+  
   return (
     <div className="App">
       <Sidebar
+      onClickDis={onClickDis}
+      onClickDash={onClickDash}
+      onClickBank={onClickBank}
        />
-      <Dashboard />
+      <Dashboard 
+        dashName={sdBarSt}
+      />
     </div>
   );
 }
