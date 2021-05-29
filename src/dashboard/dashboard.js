@@ -6,23 +6,19 @@ import {tbData} from "./data";
 import {useState, useEffect} from 'react';
 
 let lid, fname, lname, stDate, enDate, dtCat="sacntion_date", idx=0;
-let willShow = false;
+let dtLen, crPage, totPage;
 function Dashboard(props) {
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
     useEffect(() => {
         if(props.dashName === "dash") {
             setDName("Uploaded File");
-            willShow = false;
-            console.log("hi");
         }
         else if(props.dashName === "dis") {
-            setDName("Disbursal MIS");
-            willShow = false;
+            setDName("Disbursal MIS");            
         }
         else if(props.dashName === "bank") {
-            setDName("Bank Uploaded File");
-            willShow = false;
+            setDName("Bank Upload File");
         }
         setTbDt({});
         //search();
@@ -120,10 +116,9 @@ function Dashboard(props) {
     //==================================
 
     //Search raw uploaded record........
-    const search = () => {
+    const search = (isNav=false) => {
         let srCr = {};
         let canSend = true;
-        //alert(lid + " " + fname + " " + " " + lname + " " + stDate + " " + enDate + " " + dtCat)
         if(lid) {
             //alert("lid");
             srCr["lid"] = lid;
@@ -163,12 +158,18 @@ function Dashboard(props) {
                     }
                     let col = res.data.msg.clName;
                     let data = res.data.msg.data;
-                    let dt = {}
+                    if(!isNav) {
+                        dtLen = res.data.msg.count;
+                        totPage = dtLen / 20;
+                    }
+                    let dt = {};
                     
                     dt["clName"] = col;
                     dt["data"] = data;
-                    //console.log(res);
-                    willShow = true;
+                    /*dt["dtLen"] = dtLen;
+                    dt["curPage"] = idx + 1;
+                    dt["totPage"] = totPage;*/
+                    //console.log(res);                
                     //alert("Fetched...");
                     setTbDt(dt);
                 })
@@ -189,7 +190,12 @@ function Dashboard(props) {
     }
     const srPrv = () => {
         idx--;
-        search();
+        if(idx >= 0)
+            search();
+        else {
+            idx = 0;
+        }
+
     }
 
 /*    useEffect(() => {
@@ -223,7 +229,6 @@ function Dashboard(props) {
                 />
                 <DtTable 
                 Data={tbDt}
-                show={willShow}
                 tbName={dName}
                 handlNavPrv={srPrv}
                 handlNavNxt={srNxt}

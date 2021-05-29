@@ -116,7 +116,7 @@ body {
 }
 
 .dtTab::-webkit-scrollbar {
-  width:5px;
+  width:10px;
 }
 .dtTab::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

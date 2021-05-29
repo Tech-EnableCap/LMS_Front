@@ -41,10 +41,10 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                         <label>Date Category</label><br/> 
                         <select name="cat" id="dtCat" onChange={props.dtCatChange}>
                             <option value="sacntion_date">Sanction Date</option>
-                            <option value="LoanApp">Loan Application Date</option>
-                            <option value="DisDt">Disburse Date</option>
-                            <option value="FApprv">Final Approval Date</option>
-                            <option value="JDt">Joining Date</option>
+                            <option value="loan_app_date">Loan Application Date</option>
+                            <option value="disburse_date">Disburse Date</option>
+                            <option value="final_approv_date">Final Approval Date</option>
+                            <option value="joining_date">Joining Date</option>
                         </select>
                     </li>
                 </div>

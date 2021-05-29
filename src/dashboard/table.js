@@ -1,9 +1,10 @@
 function DtTable(props) {
-    let show = (props.show ? "dtTab" : "dtTab hide");
+    //let show = (props.show ? "dtTab" : "dtTab hide");
+    const show = "dtTab";
     return (
         <div className="table">
             <div className="tbHeader">
-                <label>{"data" in props.Data ? props.Data["data"].length : "0"} entries found | Showing 20 entries per page</label>
+                <label>0 entries found | Showing 20 entries per page</label>
                 <label style={{fontSize:"20px"}}>{props.tbName}</label>
                 <div className="navTable">
                     <div className="navPrv navStl" onClick={props.handlNavPrv}><i className="fa fa-caret-left"></i></div>
@@ -26,6 +27,7 @@ function DtTable(props) {
                                 return(
                                     <tr>
                                     {row.map(val => {
+                                        //console.log(val);
                                         return (
                                             <td>{val}</td>
                                         );
