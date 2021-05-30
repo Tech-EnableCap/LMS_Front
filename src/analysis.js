@@ -112,17 +112,48 @@ function Analysis(props) {
             "cat":dateCat
         }
         axios.post(route + "/analysis", crit).then((res) => {
-            setAnData(res.data.msg);     
+            if(!("data" in res.data.msg)) {
+                alert (res.data.msg.error);
+                setAnData({});     
+                props.isLoad(false);
+                return;
+            }            
             props.isLoad(false);       
         })
     }
 
       
 
-      let tdStl = {
-          padding: "5px"
-          
-      }
+    let tdStl = {
+        padding: "5px"      
+    }
+
+    let options = { 
+        legend: {
+            labels: {
+                fontColor: "blue",
+                fontSize: 18
+            }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "green",
+                    fontSize: 18,
+                    stepSize: 1,
+                    beginAtZero: true
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "purple",
+                    fontSize: 14,
+                    stepSize: 1,
+                    beginAtZero: true
+                }
+            }]
+        }
+    };
     return (
         <div className="analysis">
             <SearchBar 
@@ -135,7 +166,7 @@ function Analysis(props) {
             <table><tr><td>
                 <div style={{width: "fit-content"}}>
                     <div className="chart" style={{height:"300px", width:"300px", margin: "0 auto 0 auto"}}>
-                        <Doughnut data={dataP}/>
+                        <Doughnut data={dataP} options={options}/>
                     </div>
                 
                     <div style={{color: "white", display: "inline-block", borderRight: "1px solid grey"}}>

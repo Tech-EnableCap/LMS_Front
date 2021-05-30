@@ -146,6 +146,7 @@ function Dashboard(props) {
         }
         else {
             alert("Invalid search criteria.");
+            props.isLoad(false);
             canSend = false;
         }
         if(canSend) {
@@ -164,6 +165,7 @@ function Dashboard(props) {
                     if(!("data" in res.data.msg)) {
                         alert (res.data.msg.error);
                         setTbDt({});
+                        props.isLoad(false);
                         return;
                     }
                     let col = res.data.msg.clName;

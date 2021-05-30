@@ -77,8 +77,26 @@
 body {
   background: #282c34;
   background-image: linear-gradient(135deg, #2D3A62, #55375E);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
+body::-webkit-scrollbar {
+  width:5px;
+}
+body::-webkit-slider {
+  height: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 
 .prfImg {
   height: 200px;
@@ -95,7 +113,26 @@ body {
   height: 100%;
   text-align: center;
   z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
+.sidebar::-webkit-scrollbar {
+  width:5px;
+}
+.sidebar::-webkit-slider {
+  height: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 38, 147);
+  outline: 1px solid rgb(214, 13, 90);
+}
+
 
 .sdHeader {
   background-color: rgb(212, 47, 111);

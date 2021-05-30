@@ -30,11 +30,11 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 <div style={props.lidChange ? style : {display: "none"}}>
                     <li><label>Loan ID</label><br/> <input type="text" id="srLID" onChange={props.lidChange}/></li>
                 </div>
-                <div style={style} style={props.fnameChange ? style : {display: "none"}}>
+                <div style={props.fnameChange ? style : {display: "none"}}>
                     <li><label>First Name</label><br/> <input type="text" id="fname" onChange={props.fnameChange}/></li>
                     <li><label>Last Name</label><br/> <input type="text" id="lname" onChange={props.lnameChange}/></li>
                 </div>
-                <div style={style} style={props.stDateChange ? style : {display: "none"}}>
+                <div style={props.stDateChange ? style : {display: "none"}}>
                     <li><label>Start Date</label><br/> <input type="date" id="stDate" onChange={props.stDateChange} /></li>
                     <li><label>End Date</label><br/> <input type="date" id="enDate" onChange={props.enDateChange} /></li>
                     <li>
