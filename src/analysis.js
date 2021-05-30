@@ -6,7 +6,6 @@ import {route} from './route'
 
 let startDate, endDate, dateCat="sacntion_date";
 
-
 function Analysis(props) {
     const [anData, setAnData] = useState({});
     const [dataN, setDataN] = useState({});
@@ -105,20 +104,23 @@ function Analysis(props) {
     }
 
     const search = () => {
+        
         props.isLoad(true);
         const crit = {
             "stDate":startDate,
             "endDate":endDate,
             "cat":dateCat
-        }
+        }        
         axios.post(route + "/analysis", crit).then((res) => {
-            if(!("data" in res.data.msg)) {
+            if(!("monthly" in res.data.msg)) {
                 alert (res.data.msg.error);
                 setAnData({});     
                 props.isLoad(false);
                 return;
             }            
-            props.isLoad(false);       
+            setAnData(res.data.msg);
+            props.isLoad(false); 
+
         })
     }
 
