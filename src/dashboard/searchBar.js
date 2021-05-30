@@ -43,7 +43,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                             <option value="sacntion_date">Sanction Date</option>
                             <option value="loan_app_date">Loan Application Date</option>
                             <option value="disburse_date">Disburse Date</option>
-                            <option value="final_approv_date">Final Approval Date</option>
+                            <option value="final_approve_date">Final Approval Date</option>
                             <option value="joining_date">Joining Date</option>
                         </select>
                     </li>
