@@ -2,11 +2,11 @@ import RepUp from './uploadWidget';
 import SearchBar from './searchBar.js';
 import DtTable from './table';
 import axios from 'axios';
-import {tbData} from "./data";
 import {useState, useEffect} from 'react';
+import {route} from '../route';
 
 let lid, fname, lname, stDate, enDate, dtCat="sacntion_date", idx=0;
-let dtLen, crPage, totPage;
+let dtLen, totPage;
 function Dashboard(props) {
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
@@ -27,9 +27,14 @@ function Dashboard(props) {
 
     //Upload file...................
     const upload = (key, fl) => {
+        props.isLoad(true);
         let config = {
             headers: {
                 "cors": "no-cors",
+            },
+            onUploadProgress: function(progressEvent) {
+                var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                console.log(percentCompleted)
             }
         };
 
@@ -37,11 +42,13 @@ function Dashboard(props) {
         frmData[key] = fl;
     
         console.log(frmData);
-        axios.post("http://localhost:5000", frmData, config).then(() => {
-         alert("Successfully Uploaded.");
+        axios.post(route, frmData, config).then(() => {
+            alert("Successfully Uploaded.");
+            props.isLoad(false);
         }).catch(e => {
-        console.log(e);
-        alert("Error occurred.")
+            console.log(e);
+            props.isLoad(false);
+            alert("Error occurred.")
         })
     }
     //==================================
@@ -49,6 +56,7 @@ function Dashboard(props) {
     //Uploading disbusrsement file......
     const disOnChange = (e) => {
         let file = e.target.files[0];
+        e.target.value = null;
         if(file === undefined)
         return;
         let fl = file.name.split(".");
@@ -70,6 +78,7 @@ function Dashboard(props) {
     //Uploading equifax file......
     const eqOnChange = (e) => {
         let file = e.target.files[0];
+        e.target.value = null;
         if(file === undefined)
         return;
         let fl = file.name.split(".");
@@ -117,6 +126,7 @@ function Dashboard(props) {
 
     //Search raw uploaded record........
     const search = (isNav=false) => {
+        props.isLoad(true);
         let srCr = {};
         let canSend = true;
         if(lid) {
@@ -142,11 +152,11 @@ function Dashboard(props) {
             //srCr["idx"] = "0";
             let url;
             if(props.dashName === "dash") 
-                url = "http://localhost:5000/viewupload?idx=" + idx;
+                url = route + "/viewupload?idx=" + idx;
             else if(props.dashName === "dis") 
-                url = "http://localhost:5000/dmis?idx=" + idx;
+                url = route + "/dmis?idx=" + idx;
             else if(props.dashName === "bank") 
-                url = "http://localhost:5000/bankupload?idx=" + idx;
+                url = route + "/bankupload?idx=" + idx;
             axios.post(url, srCr)
                 .then(res => {
                     //alert("OK");
@@ -160,22 +170,24 @@ function Dashboard(props) {
                     let data = res.data.msg.data;
                     if(!isNav) {
                         dtLen = res.data.msg.count;
-                        totPage = dtLen / 20;
+                        totPage = Math.ceil(dtLen / 20);
                     }
                     let dt = {};
                     
                     dt["clName"] = col;
                     dt["data"] = data;
-                    /*dt["dtLen"] = dtLen;
+                    dt["dtLen"] = dtLen;
                     dt["curPage"] = idx + 1;
-                    dt["totPage"] = totPage;*/
+                    dt["totPage"] = totPage;
                     //console.log(res);                
                     //alert("Fetched...");
                     setTbDt(dt);
+                    props.isLoad(false);
                 })
                 .catch(err => {
                     alert("Err");
                     console.log(err);
+                    props.isLoad(false);
                 });
         }
     }
@@ -186,22 +198,89 @@ function Dashboard(props) {
     }
     const srNxt = () => {
         idx++;
-        search();
+        if(idx + 1 > totPage) {
+            idx = totPage - 1;
+        }
+        else {
+            search(true);
+        }
     }
     const srPrv = () => {
         idx--;
         if(idx >= 0)
-            search();
+            search(true);
         else {
             idx = 0;
         }
 
     }
 
-/*    useEffect(() => {
-        alert(willShow);
-        setShow(willShow);
-    }, [tbDt]);*/
+    const download = () => {
+        props.isLoad(true);
+        let srCr = [];
+        let crit = {};
+        let url;
+        if(lid) {
+            //alert("lid");
+            crit["lid"] = lid;
+        }
+        else if(fname || lname) {
+            //alert("name");
+            crit["fname"] = fname;
+            crit["lname"] = lname;
+        }
+        else if(stDate && enDate) {
+            //alert("date");
+            crit["stDate"] = stDate;
+            crit["endDate"] = enDate;
+            crit["cat"] = dtCat;
+        }
+        if(props.dashName === "dash") 
+            url = route + "/viewupload?idx=-2";
+        else if(props.dashName === "dis") 
+            url = route + "/dmis?idx=-2";
+        else if(props.dashName === "bank") 
+            url = route + "/bankupload?idx=-2";
+        axios.post(url, crit)
+        .then(res => {
+            
+            if(!("data" in res.data.msg)) {
+                alert (res.data.msg.error);
+                //setTbDt({});
+                return;
+            }
+
+            if(lid) {            
+                srCr.push(lid);
+            }
+            else if(fname || lname) {            
+                srCr.push(fname);
+                srCr.push(lname);
+            }
+            else if(stDate && enDate) {            
+                srCr.push(stDate);
+                srCr.push(enDate);
+                srCr.push(dtCat);
+            }
+
+            let csvContent = ["\"" + res.data.msg.clName.join("\",\"") + "\"\n\"" 
+            + res.data.msg.data.map(e => e.join("\",\"")).join("\"\n\"") + "\""];
+            
+            let blb = new Blob(csvContent, {type : "text/csv" });
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = window.URL.createObjectURL(blb);
+            hiddenElement.download = dName + "_" + srCr.join("_") + ".csv";
+            hiddenElement.click();
+            window.URL.revokeObjectURL(hiddenElement.href);
+            hiddenElement.remove();
+            props.isLoad(false);
+        })
+        .catch(err => {
+            console.log(err);
+            props.isLoad(false);
+        });
+        
+    }
 
     return (
         <div className="dashboard">
@@ -215,7 +294,7 @@ function Dashboard(props) {
                 icon="fa fa-upload"
                 wdLabl="Upload Candidate Equifax"
                 onChange={eqOnChange}
-                />
+                />                       
             </div>
             <div className="dashBody">
                 <SearchBar 
@@ -232,6 +311,7 @@ function Dashboard(props) {
                 tbName={dName}
                 handlNavPrv={srPrv}
                 handlNavNxt={srNxt}
+                hndlDown={download}
                 />
             </div>
         </div>

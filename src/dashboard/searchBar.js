@@ -3,8 +3,8 @@ function SearchBar(props) { //Some of the styling elements are in the css...
         borderRight:"2px solid red",
         borderLeft:"2px solid red",
         borderTop:"2px solid red",
-        borderRadius:"5px",
-        display: "inline-block",
+        borderRadius:"5px",        
+        display:"inline-block",
         margin: "3px"
     };
 
@@ -27,14 +27,14 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             <i className="fa fa-search" style={{display:"inline", fontSize:"23px"}}></i> 
             <h2 style={{display:"inline"}}> Search using...</h2>
             <ul>
-                <div style={style}>
+                <div style={props.lidChange ? style : {display: "none"}}>
                     <li><label>Loan ID</label><br/> <input type="text" id="srLID" onChange={props.lidChange}/></li>
                 </div>
-                <div style={style}>
+                <div style={style} style={props.fnameChange ? style : {display: "none"}}>
                     <li><label>First Name</label><br/> <input type="text" id="fname" onChange={props.fnameChange}/></li>
                     <li><label>Last Name</label><br/> <input type="text" id="lname" onChange={props.lnameChange}/></li>
                 </div>
-                <div style={style}>
+                <div style={style} style={props.stDateChange ? style : {display: "none"}}>
                     <li><label>Start Date</label><br/> <input type="date" id="stDate" onChange={props.stDateChange} /></li>
                     <li><label>End Date</label><br/> <input type="date" id="enDate" onChange={props.enDateChange} /></li>
                     <li>

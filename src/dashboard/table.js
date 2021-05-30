@@ -4,11 +4,13 @@ function DtTable(props) {
     return (
         <div className="table">
             <div className="tbHeader">
-                <label>0 entries found | Showing 20 entries per page</label>
+                <label>{"dtLen" in props.Data ? props.Data["dtLen"] : "0"} entries found | Showing 20 entries per page
+                <br/>Page: {"curPage" in props.Data ? props.Data["curPage"] : "1"}/{"totPage" in props.Data ? props.Data["totPage"] : "1"}</label>
                 <label style={{fontSize:"20px"}}>{props.tbName}</label>
                 <div className="navTable">
                     <div className="navPrv navStl" onClick={props.handlNavPrv}><i className="fa fa-caret-left"></i></div>
                     <div className="navNxt navStl" onClick={props.handlNavNxt}><i className="fa fa-caret-right"></i></div>
+                    <div className="navStl" onClick={props.hndlDown}><i className="fa fa-download"></i></div>
                 </div>
             </div>
             <div className={show}>
@@ -27,7 +29,6 @@ function DtTable(props) {
                                 return(
                                     <tr>
                                     {row.map(val => {
-                                        //console.log(val);
                                         return (
                                             <td>{val}</td>
                                         );
