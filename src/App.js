@@ -7,7 +7,7 @@ import Analysis from './analysis';
 import MasterRepay from './masterRepay/masterRepay';
 
 function App() {  
-  const [sdBarSt, setSd] = useState("master"); //change default value to "ana"
+  const [sdBarSt, setSd] = useState("ana"); //change default value to "ana"
   const [hide, setHide] = useState(true);
   const onClickBank = () => {
     setSd("bank");
