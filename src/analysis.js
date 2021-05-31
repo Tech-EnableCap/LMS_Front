@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {route} from './route'
 
-let startDate, endDate, dateCat="sacntion_date";
+let startDate, endDate, dateCat="first_inst_date";
 
 function Analysis(props) {
     const [anData, setAnData] = useState({});
@@ -221,7 +221,7 @@ function Analysis(props) {
                             </td>
                             <td>
                                 <div className="chart" style={{height:"300px", width:"300px"}}>
-                                    <Doughnut data={dataN}/>
+                                    <Doughnut data={dataN} options={options}/>
                                 </div>
                             </td>
                         </tr>                    
@@ -240,7 +240,7 @@ function Analysis(props) {
                             </td>
                             <td style={{paddingTop: "20px"}}>
                                 <div className="chart" style={{height:"300px", width:"300px"}}>
-                                        <Doughnut data={dataV}/>
+                                        <Doughnut data={dataV} options={options}/>
                                 </div>
                             </td>
                         </tr>

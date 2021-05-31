@@ -12,7 +12,7 @@ function SideBar(props) {
                 <li onClick={props.onClickDash}><i className="fa fa-address-card-o"></i> Uploaded Files</li>                
                 <li onClick={props.onClickDis}><i className="fa fa-money"></i> Disbursal MIS</li>
                 <li onClick={props.onClickBank}><i className="fa fa-bank"></i> Bank Upload File</li>
-                <li><i className="fa fa-clock-o"></i> Master Repayment Schedule</li>
+                <li onClick={props.onClickMaster}><i className="fa fa-clock-o"></i> Master Repayment Schedule</li>
             </ul>
         </div>
     );

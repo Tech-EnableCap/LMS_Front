@@ -75,7 +75,6 @@
 
 
 body {
-  background: #282c34;
   background-image: linear-gradient(135deg, #2D3A62, #55375E);
   overflow-y: auto;
   overflow-x: hidden;
@@ -180,7 +179,6 @@ body::-webkit-scrollbar-thumb {
   transform: translateX(200px);
   height: 100%;
   position: absolute;
-  z-index: 1;
   width: 90vw;
 }
 

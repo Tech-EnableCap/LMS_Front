@@ -5,7 +5,7 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 import {route} from '../route';
 
-let lid, fname, lname, stDate, enDate, dtCat="sacntion_date", idx=0;
+let lid, fname, lname, stDate, enDate, dtCat="first_inst_date", idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
     const [dName, setDName] = useState();
@@ -19,6 +19,9 @@ function Dashboard(props) {
         }
         else if(props.dashName === "bank") {
             setDName("Bank Upload File");
+        }
+        else if(props.dashName === "master") {
+            setDName("Master Repayment Schedule");
         }
         setTbDt({});
         //search();
@@ -158,6 +161,9 @@ function Dashboard(props) {
                 url = route + "/dmis?idx=" + idx;
             else if(props.dashName === "bank") 
                 url = route + "/bankupload?idx=" + idx;
+            else if(props.dashName === "master")
+                url = route + "/search_repay?idx=" + idx;
+            
             axios.post(url, srCr)
                 .then(res => {
                     //alert("OK");
@@ -168,8 +174,8 @@ function Dashboard(props) {
                         props.isLoad(false);
                         return;
                     }
-                    let col = res.data.msg.clName;
-                    let data = res.data.msg.data;
+                    let col = res.data.msg.clName; //list / array
+                    let data = res.data.msg.data; // list of list / 2d Array
                     if(!isNav) {
                         dtLen = res.data.msg.count;
                         totPage = Math.ceil(dtLen / 20);
@@ -243,6 +249,8 @@ function Dashboard(props) {
             url = route + "/dmis?idx=-2";
         else if(props.dashName === "bank") 
             url = route + "/bankupload?idx=-2";
+        else if(props.dashName === "master")
+            url = route + "/search_repay?idx=-2" ;
         axios.post(url, crit)
         .then(res => {
             
@@ -301,20 +309,20 @@ function Dashboard(props) {
             </div>
             <div className="dashBody">
                 <SearchBar 
-                hndlSearch={srClick}
-                lidChange={lidCh} 
-                fnameChange={fnameCh} 
-                lnameChange={lnameCh} 
-                stDateChange={stDateCh} 
-                enDateChange={enDateCh} 
-                dtCatChange={dtCatCh} 
+                    hndlSearch={srClick}
+                    lidChange={lidCh} 
+                    fnameChange={fnameCh} 
+                    lnameChange={lnameCh} 
+                    stDateChange={stDateCh} 
+                    enDateChange={enDateCh} 
+                    dtCatChange={dtCatCh} 
                 />
                 <DtTable 
-                Data={tbDt}
-                tbName={dName}
-                handlNavPrv={srPrv}
-                handlNavNxt={srNxt}
-                hndlDown={download}
+                    Data={tbDt}
+                    tbName={dName}
+                    handlNavPrv={srPrv}
+                    handlNavNxt={srNxt}
+                    hndlDown={download}
                 />
             </div>
         </div>

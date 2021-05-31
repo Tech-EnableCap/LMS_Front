@@ -40,6 +40,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                     <li>
                         <label>Date Category</label><br/> 
                         <select name="cat" id="dtCat" onChange={props.dtCatChange}>
+                            <option value="first_inst_date">EMI Date</option>
                             <option value="sacntion_date">Sanction Date</option>
                             <option value="loan_app_date">Loan Application Date</option>
                             <option value="disburse_date">Disburse Date</option>
