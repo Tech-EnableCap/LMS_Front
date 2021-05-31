@@ -246,8 +246,9 @@ function Dashboard(props) {
         axios.post(url, crit)
         .then(res => {
             
-            if(!("data" in res.data.msg)) {
+            if(!("data" in res.data.msg)) {                
                 alert (res.data.msg.error);
+                props.isLoad(false);
                 //setTbDt({});
                 return;
             }
