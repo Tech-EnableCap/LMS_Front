@@ -29,6 +29,8 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     const hndlReset = () => {
         elRef.map(e => {
             e.value = null;
+            const event = new Event("input", { bubbles: true });
+            e.dispatchEvent(event);
         })
     }
     
