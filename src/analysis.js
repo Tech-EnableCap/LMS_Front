@@ -2,7 +2,7 @@ import SearchBar from './dashboard/searchBar';
 import {Bar, Doughnut} from 'react-chartjs-2';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {route} from './route'
+import {route} from './route';
 
 let startDate, endDate, dateCat="first_inst_date";
 
@@ -165,7 +165,12 @@ function Analysis(props) {
             hndlSearch={search}
             />
 
-            <table><tr><td>
+            <table style={{
+                marginTop: "30px",
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "80%"
+                }}><tr><td>
                 <div style={{width: "fit-content"}}>
                     <div className="chart" style={{height:"300px", width:"300px", margin: "0 auto 0 auto"}}>
                         <Doughnut data={dataP} options={options}/>
@@ -249,6 +254,10 @@ function Analysis(props) {
             </td>
             </tr>
             </table>
+            <div style={{
+                height: "100px",
+                width: "100%"
+            }}></div>
         </div>
     );
 }
