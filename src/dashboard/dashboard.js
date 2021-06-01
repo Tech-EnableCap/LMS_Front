@@ -225,7 +225,7 @@ function Dashboard(props) {
 
     const download = () => {
         props.isLoad(true);
-        let srCr = [];
+        //let srCr = [];
         let crit = {};
         let url;
         if(lid) {
@@ -261,7 +261,7 @@ function Dashboard(props) {
                 return;
             }
 
-            if(lid) {            
+            /*if(lid) {            
                 srCr.push(lid);
             }
             else if(fname || lname) {            
@@ -272,7 +272,7 @@ function Dashboard(props) {
                 srCr.push(stDate);
                 srCr.push(enDate);
                 srCr.push(dtCat);
-            }
+            }*/
 
             let csvContent = ["\"" + res.data.msg.clName.join("\",\"") + "\"\n\"" 
             + res.data.msg.data.map(e => e.join("\",\"")).join("\"\n\"") + "\""];
@@ -280,7 +280,7 @@ function Dashboard(props) {
             let blb = new Blob(csvContent, {type : "text/csv" });
             var hiddenElement = document.createElement('a');
             hiddenElement.href = window.URL.createObjectURL(blb);
-            hiddenElement.download = dName + "_" + srCr.join("_") + ".csv";
+            hiddenElement.download = dName + ".csv";
             hiddenElement.click();
             window.URL.revokeObjectURL(hiddenElement.href);
             hiddenElement.remove();
