@@ -190,7 +190,7 @@ function Dashboard(props) {
                     //console.log(res);                
                     //alert("Fetched...");
                     setTbDt(dt);
-                    props.isLoad(false);
+                    props.isLoad(false);                    
                 })
                 .catch(err => {
                     alert("Err");
@@ -202,7 +202,7 @@ function Dashboard(props) {
     //==================================
     const srClick = () => {
         idx = 0;
-        search()
+        search();        
     }
     const srNxt = () => {
         idx++;
@@ -292,6 +292,15 @@ function Dashboard(props) {
         });
         
     }
+
+    useEffect(() => {
+        if("clName" in tbDt) {
+            let el = document.createElement('a');
+            el.href="#dashTable";
+            el.click();
+            el.remove();
+        }
+    }, [tbDt]);
 
     return (
         <div className="dashboard">

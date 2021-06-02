@@ -2,7 +2,7 @@ function DtTable(props) {
     //let show = (props.show ? "dtTab" : "dtTab hide");
     const show = "dtTab";
     return (
-        <div className="table">
+        <div className="table" id="dashTable">
             <div className="tbHeader">
                 <label>{"dtLen" in props.Data ? props.Data["dtLen"] : "0"} entries found | Showing 20 entries per page
                 <br/>Page: {"curPage" in props.Data ? props.Data["curPage"] : "1"}/{"totPage" in props.Data ? props.Data["totPage"] : "1"}</label>

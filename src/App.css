@@ -1,4 +1,6 @@
-
+html {
+  scroll-behavior: smooth;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .prfImg {
@@ -75,7 +77,23 @@
 
 
 body {
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+body::-webkit-scrollbar {
+  width:10px;
+  height:10px;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(153, 153, 153);
+  outline: 2px solid rgb(17, 17, 17);
 }
 
 .prfImg {
@@ -158,7 +176,7 @@ body {
 .dashboard {
   background-image: linear-gradient(135deg, #2D3A62, #55375E);
   transform: translateX(200px);
-  height: 100%;
+  height: auto;
   position: absolute;
   width: 90vw;
 }
@@ -183,8 +201,8 @@ body {
 }
 
 .dtTab {
-  width: 85vw;
-  height: 63vh;
+  width: 75vw;
+  height: 90vh;
   overflow-x: auto;
   overflow-y: auto;
   margin: 0 auto 0 auto;
@@ -242,8 +260,8 @@ table tbody tr:nth-child(2n) {
 
 .table .tbHeader {
   color:rgb(200, 199, 199);
-  /*margin-left:100px;*/
-  width: 89%;
+  margin-bottom:5px;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -275,25 +293,5 @@ table tbody tr:nth-child(2n) {
 
 .analysis {
   transform: translateX(200px);
-  height: 100vh;
-  width: 90vw;
-  overflow-x: auto;
-  overflow-y: auto;
   background-image: linear-gradient(135deg, #2D3A62, #55375E);
-}
-
-.analysis::-webkit-scrollbar {
-  width:5px;
-}
-.analysis::-webkit-slider {
-  height: 5px;
-}
-
-.analysis::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
- 
-.analysis::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
 }

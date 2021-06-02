@@ -2,9 +2,9 @@ function Loader(props) {
     let stl = {
         display:(props.hide ? "none" : "flex"),
         alignItems:"center",
-        position:"absolute",
+        position:"fixed",
         backgroundColor:"rgba(0, 0, 0, 0.5)",        
-        height:"100%",
+        height:"100vh",
         width:"100%",
         left:"0px",
         top:"0px",

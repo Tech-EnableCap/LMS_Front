@@ -166,7 +166,7 @@ function Analysis(props) {
             />
 
             <table style={{
-                marginTop: "30px",
+                marginTop: "5px",
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "80%"
