@@ -24,6 +24,7 @@ function New_Pmt(props) {
                 res => {
                     if("error" in res.data.msg) {
                         alert(res.data.msg.error);
+                        props.isLoad(false);
                         return;
                     }
                     setFrm({
@@ -63,8 +64,7 @@ function New_Pmt(props) {
         }
 
         let config = {
-            "lid": frmData["lid"],
-            //"cf" : parseInt(frmData["due"]) - p_amt,
+            "lid": frmData["lid"],            
             "pmt" : p_amt,
             "date" : crDate,
             "rem" : rem
@@ -73,6 +73,7 @@ function New_Pmt(props) {
             .then(res => {
                 if("error" in res.data.msg) {
                     alert(res.data.msg.error);
+                    props.isLoad(false);
                     return;
                 }
                 alert("Payment Successful");
@@ -153,6 +154,7 @@ function Hist(props) {
                 res => {
                     if("error" in res.data.msg) {
                         alert(res.data.msg.error);
+                        props.isLoad(false);
                         return;
                     }
                     setFrm({
