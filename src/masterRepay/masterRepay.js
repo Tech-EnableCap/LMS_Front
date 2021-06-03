@@ -155,14 +155,13 @@ function Hist(props) {
                         return;
                     }
                     setFrm({
-                        "pid":res.data.msg.data["pid"],
-                        "fn":res.data.msg.data["fn"],//fn
-                        "ln":res.data.msg.data["ln"],//ln
-                        "emi":res.data.msg.data["emi"],//emi
-                        "out":res.data.msg.data["out"],//emi
-                        "due":res.data.msg.data["due"],//emi
-                        "status":res.data.msg.data["status"],//emi
-                        "data":res.data.msg.data["data"]
+                        "pid":res.data.msg["pid"],
+                        "fn":res.data.msg["fn"],//fn
+                        "ln":res.data.msg["ln"],//ln
+                        "emi":res.data.msg["emi"],//emi
+                        "out":res.data.msg["out"],//emi
+                        "due":res.data.msg["due"],//emi
+                        "status":res.data.msg["status"]//emi                        
                     });
                     props.isLoad(false);
                 }
@@ -176,7 +175,31 @@ function Hist(props) {
             );
     }
 
-    useEffect(() => search(), []);
+    useEffect(() => {
+        search();
+        let config = {
+            "lid":props.lid
+        }
+        axios.post(route + "/track_history", config)
+            .then( res => {
+                setFrm({
+                    "pid":frmData["pid"],
+                    "fn":frmData["fn"],//fn
+                    "ln":frmData["ln"],//ln
+                    "emi":frmData["emi"],//emi
+                    "out":frmData["out"],//emi
+                    "due":frmData["due"],//emi
+                    "status":frmData["status"],//emi                        
+                    "data":res.data.msg.data
+                });
+            }
+        )
+        .catch(err => {
+            alert("Couldn't fetch info.");
+            console.log(err);
+        });
+    }
+    , []);
 
     return (
         <div className="pmt_hist">
