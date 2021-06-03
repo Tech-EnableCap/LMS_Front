@@ -67,10 +67,10 @@ function New_Pmt(props) {
         }
 
         let config = {
-            "lid": props.lid,            
-            "pmt" : p_amt,
-            "date" : crDate,
-            "rem" : rem
+            "lid":props.lid,            
+            "pmt":p_amt,
+            "date":crDate,
+            "rem":rem
         }
         console.log(config);
         axios.post(route + "/repay_track", config)
