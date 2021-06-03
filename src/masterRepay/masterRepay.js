@@ -136,6 +136,7 @@ function New_Pmt(props) {
 
 function Hist(props) {
     const [frmData, setFrm] = useState({});
+    const [hist, setHist] = useState({});
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -182,14 +183,7 @@ function Hist(props) {
         }
         axios.post(route + "/track_history", config)
             .then( res => {
-                setFrm({
-                    "pid":frmData["pid"],
-                    "fn":frmData["fn"],//fn
-                    "ln":frmData["ln"],//ln
-                    "emi":frmData["emi"],//emi
-                    "out":frmData["out"],//emi
-                    "due":frmData["due"],//emi
-                    "status":frmData["status"],//emi                        
+                setHist({                                          
                     "data":res.data.msg.data
                 });
             }
@@ -250,7 +244,7 @@ function Hist(props) {
                                 </tr>     
                             </thead>
                             <tbody>
-                                {("data" in frmData) && frmData["data"].map(
+                                {("data" in hist) && hist["data"].map(
                                     (row) => (<tr>{row.map((val) => (<td>{val}</td>))}</tr>))}
                             </tbody>
                         </table>                        
