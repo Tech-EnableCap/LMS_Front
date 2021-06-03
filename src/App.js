@@ -8,7 +8,7 @@ import MasterRepay from './masterRepay/masterRepay';
 
 let lid="10235645879";
 function App() {  
-  const [sdBarSt, setSd] = useState("pmt"); //change default value to "ana"
+  const [sdBarSt, setSd] = useState("ana"); //change default value to "ana"
   const [hide, setHide] = useState(true);  
   const onClickBank = () => {
     setSd("bank");
