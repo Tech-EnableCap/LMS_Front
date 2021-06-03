@@ -1,8 +1,94 @@
 .master {
     transform: translateX(200px);
-    height: 100%;
+    min-height: 100vh;
     position: absolute;
     width: 90vw;
     color: rgb(179, 178, 178);
     background-image: linear-gradient(135deg, #2D3A62, #55375E);
+}
+
+.rpsb {
+    height: 30px;
+    width: 75px;
+    border-radius: 10px;
+}
+
+.form {
+    width: 500px;
+    height: auto;
+    margin: 100px auto;
+    box-shadow: 5px 5px 5px 5px #0c0c0c;;
+    /*background-color: rgb(206, 57, 114);*/
+    padding: 15px;
+}
+
+.form table {
+    margin: 20px 0 0 20px;
+}
+
+.form table td {
+    padding: 8px;
+}
+
+.canvas {
+    border: 1px solid black;
+    min-height: 85vh;
+    margin: 5px;
+    padding: 5px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.menu label {
+    display: block;
+    height: 50px;
+    width: 50%;
+    padding: 0;
+    background-color: rgb(206, 57, 114);    
+    text-align: center;
+    color: white;
+    border: 2px solid rgb(150, 35, 56);
+    user-select: none;
+}
+
+.menu label:hover {
+    background-color:rgb(153, 54, 92);
+}
+
+.menu label p {
+    margin: 12px;
+}
+
+.prf_dt .form {
+    margin: 100px 100px; 
+    width: 300px;   
+}
+
+.prf_dt .form table {
+    margin: 10px;
+}
+
+.prf_dt .form table td {
+    padding: 5px;
+}
+
+.prf_dt {
+    display: inline-block;
+}
+
+.pmt_sch {
+    display: inline-block;
+    width: fit-content;
+}
+
+.pmt_sch .form {
+    width: auto;
+}
+
+.pmt_sch .form table{
+    margin: 10px;
 }

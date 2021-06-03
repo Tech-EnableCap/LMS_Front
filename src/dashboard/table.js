@@ -1,6 +1,8 @@
+
+
 function DtTable(props) {
     //let show = (props.show ? "dtTab" : "dtTab hide");
-    const show = "dtTab";
+    const show = "dtTab";    
     return (
         <div className="table" id="dashTable">
             <div className="tbHeader">
@@ -22,6 +24,7 @@ function DtTable(props) {
                                     <th>{val}</th>
                                 );
                             })}
+                            {("clName" in props.Data) && (props.tbName === "Master Repayment Schedule") && (<th>Display</th>)}
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +35,9 @@ function DtTable(props) {
                                         return (
                                             <td>{val}</td>
                                         );
-                                    })}</tr>
+                                    })}
+                                    {(props.tbName === "Master Repayment Schedule") && (<td><button name={row[0]} onClick={props.hndlViewMore}>View More</button></td>)}
+                                    </tr>
                                     );                            
                             })}
                     </tbody>

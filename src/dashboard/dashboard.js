@@ -8,6 +8,8 @@ import {route} from '../route';
 let lid, fname, lname, stDate, enDate, dtCat="first_inst_date", idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
+    lid = fname = lname = stDate = enDate = 0;
+    dtCat="first_inst_date";
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
     useEffect(() => {
@@ -21,7 +23,46 @@ function Dashboard(props) {
             setDName("Bank Upload File");
         }
         else if(props.dashName === "master") {
+            props.isLoad(true);
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();  
             setDName("Master Repayment Schedule");
+            let srCr = {};
+            srCr["stDate"] = yyyy + "-" + mm + "-" + dd;
+            srCr["endDate"] = yyyy + "-" + mm + "-" + dd;
+            axios.post(route + "/search_repay?idx=0", srCr)
+                .then(res => {
+                    //alert("OK");
+                    //console.log(res);
+                    if(!("data" in res.data.msg)) {
+                        alert (res.data.msg.error);
+                        setTbDt({});
+                        props.isLoad(false);
+                        return;
+                    }
+                    let col = res.data.msg.clName; //list / array
+                    let data = res.data.msg.data; // list of list / 2d Array                    
+                    dtLen = res.data.msg.count;
+                    totPage = Math.ceil(dtLen / 20);                    
+                    let dt = {};
+                    
+                    dt["clName"] = col;
+                    dt["data"] = data;
+                    dt["dtLen"] = dtLen;
+                    dt["curPage"] = idx + 1;
+                    dt["totPage"] = totPage;
+                    //console.log(res);                
+                    //alert("Fetched...");
+                    setTbDt(dt);
+                    props.isLoad(false);                    
+                })
+                .catch(err => {
+                    alert("Err");
+                    console.log(err);
+                    props.isLoad(false);
+                });
         }
         setTbDt({});
         //search();
@@ -293,6 +334,7 @@ function Dashboard(props) {
         
     }
 
+    
     useEffect(() => {
         if("clName" in tbDt) {
             let el = document.createElement('a');
@@ -332,6 +374,7 @@ function Dashboard(props) {
                     handlNavPrv={srPrv}
                     handlNavNxt={srNxt}
                     hndlDown={download}
+                    hndlViewMore={props.hndlViewMore}
                 />
             </div>
         </div>

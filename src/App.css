@@ -176,7 +176,7 @@ body::-webkit-scrollbar-thumb {
 .dashboard {
   background-image: linear-gradient(135deg, #2D3A62, #55375E);
   transform: translateX(200px);
-  height: auto;
+  min-height: 100vh;
   position: absolute;
   width: 90vw;
 }
@@ -202,7 +202,7 @@ body::-webkit-scrollbar-thumb {
 
 .dtTab {
   width: 75vw;
-  height: 90vh;
+  max-height: 90vh;
   overflow-x: auto;
   overflow-y: auto;
   margin: 0 auto 0 auto;

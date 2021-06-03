@@ -6,9 +6,10 @@ import Dashboard from './dashboard/dashboard';
 import Analysis from './analysis';
 import MasterRepay from './masterRepay/masterRepay';
 
+let lid="10235645879";
 function App() {  
-  const [sdBarSt, setSd] = useState("ana"); //change default value to "ana"
-  const [hide, setHide] = useState(true);
+  const [sdBarSt, setSd] = useState("pmt"); //change default value to "ana"
+  const [hide, setHide] = useState(true);  
   const onClickBank = () => {
     setSd("bank");
   }
@@ -27,6 +28,14 @@ function App() {
   const isLoad = (e) => {
     setHide(!e);
   }
+  const hndlViewMore = (e) => {
+    //alert(e.target.name.length);
+    if(e.target.name.length > 2) {
+      setSd("pmt");
+      lid = e.target.name;
+    }
+}
+
   const [cmp, setCmp] = useState();
   useEffect( () => {
     setCmp(
@@ -35,13 +44,14 @@ function App() {
           return (<Dashboard 
             dashName={sdBarSt}
             isLoad={isLoad}
+            hndlViewMore={hndlViewMore}
           />);
         else if(sdBarSt === "ana")
           return (<Analysis 
             isLoad={isLoad}  
           />);
-        /*else if(sdBarSt === "master")
-          return (<MasterRepay />);*/
+        else
+          return (<MasterRepay lid={lid} isLoad={isLoad}/>);
     }
     );
   }, [sdBarSt]);
