@@ -56,12 +56,12 @@ function New_Pmt(props) {
     }
     
     const hndlSub = () => {
-        props.isLoad(true);
+        /*props.isLoad(true);
         if(p_amt > parseInt(frmData["out"]) || !("out" in frmData)) {
             alert("Payment amount should not be greater than outstanding amount.");
             props.isLoad(false);
             return;
-        }
+        }*/
 
         let config = {
             "lid": props.lid,            
@@ -69,7 +69,8 @@ function New_Pmt(props) {
             "date" : crDate,
             "rem" : rem
         }
-        axios.post(route + "/repay_track", config)
+        console.log(config);
+        /*axios.post(route + "/repay_track", config)
             .then(res => {
                 if("error" in res.data.msg) {
                     alert(res.data.msg.error);
@@ -84,7 +85,7 @@ function New_Pmt(props) {
                 alert("Err...");
                 props.isLoad(false);
                 console.log(e);
-            });
+            });*/
     }
 
     const hndlDateChnge = (e) => {
