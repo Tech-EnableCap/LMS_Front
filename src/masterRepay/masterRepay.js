@@ -27,12 +27,12 @@ function New_Pmt(props) {
                         return;
                     }
                     setFrm({
-                        "pid":res.data.msg.data["pid"],
-                        "fn":res.data.msg.data["fn"],//fn
-                        "ln":res.data.msg.data["ln"],//ln
-                        "emi":res.data.msg.data["emi"],//emi
-                        "out":res.data.msg.data["out"],//emi
-                        "due":res.data.msg.data["due"],//emi
+                        "pid":res.data.msg["pid"],
+                        "fn":res.data.msg["fn"],//fn
+                        "ln":res.data.msg["ln"],//ln
+                        "emi":res.data.msg["emi"],//emi
+                        "out":res.data.msg["out"],//emi
+                        "due":res.data.msg["due"],//emi
                     });
                     props.isLoad(false);
                 }
