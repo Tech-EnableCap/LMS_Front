@@ -8,7 +8,7 @@ import {route} from '../route';
 let lid, fname, lname, stDate, enDate, dtCat="first_inst_date", idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
-    lid = fname = lname = stDate = enDate = 0;
+    //lid = fname = lname = stDate = enDate = 0;
     dtCat="first_inst_date";
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});

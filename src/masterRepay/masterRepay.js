@@ -1,7 +1,5 @@
 import './ms.css';
-import {useEffect, useState} from 'react';
-import axios from 'axios';
-import {route} from '../route';
+import {useState} from 'react';
 import New_Pmt from './new_pmt';
 import Hist from './hist';
 

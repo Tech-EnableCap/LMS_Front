@@ -36,7 +36,8 @@ function DtTable(props) {
                                             <td>{val}</td>
                                         );
                                     })}
-                                    {(props.tbName === "Master Repayment Schedule") && (<td><button name={row[0]} onClick={props.hndlViewMore}>View More</button></td>)}
+                                    {(props.tbName === "Master Repayment Schedule") && (row[0].length > 2) && (<td><button name={row[0]} onClick={props.hndlViewMore}>View More</button></td>)}
+                                    {(props.tbName === "Master Repayment Schedule") && (row[0].length <= 2) && (<td></td>)}
                                     </tr>
                                     );                            
                             })}
