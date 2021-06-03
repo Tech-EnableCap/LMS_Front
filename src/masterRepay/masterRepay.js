@@ -64,7 +64,7 @@ function New_Pmt(props) {
         }
 
         let config = {
-            "lid": frmData["lid"],            
+            "lid": props.lid,            
             "pmt" : p_amt,
             "date" : crDate,
             "rem" : rem
