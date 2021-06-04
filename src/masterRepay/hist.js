@@ -113,10 +113,11 @@ function Hist(props) {
                 <div className="form">
                         <h4><center>Payment History</center></h4>
                         <table>
-                            <thead>
-                                <tr>
-                                    <td>Recieved Date</td>
-                                    <td>Recieved Amt. (Rs.)</td>                                                                                
+                            <thead>                                                                            
+                                <tr>                                    
+                                    <td>Recieved Date</td>    
+                                    <td>Recieved Amt. (Rs.)</td>                                        
+                                    {/*<td>Supposed Recieve Date</td>    */}
                                     <td>Amount Due (Rs.)</td>    
                                     <td>Amount Carried Forward (Rs.)</td>    
                                     <td>Status</td>  
