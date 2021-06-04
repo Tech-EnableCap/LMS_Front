@@ -47,6 +47,7 @@ function Hist(props) {
 
     useEffect(() => {
         search();
+        props.isLoad(true);
         let config = {
             "lid":props.lid
         }
@@ -55,11 +56,13 @@ function Hist(props) {
                 if(!("data" in res.data.msg))
                 {
                     //alert(res.data.msg.error);
+                    props.isLoad(false);
                     return;
                 }
                 setHist({                                          
                     "data":res.data.msg.data
                 });
+                props.isLoad(false);
             }
         )
         .catch(err => {
