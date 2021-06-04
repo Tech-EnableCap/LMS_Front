@@ -92,9 +92,15 @@ function New_Pmt(props) {
     }
 
     useEffect(() => search(), [crDate]);
+    useEffect(() => {
+        let el = document.createElement('a');
+        el.setAttribute('href', "#can");
+        el.click();
+        el.remove();
+    }, [frmData])
 
     return (
-        <div className="form">
+        <div className="form align-mid">
             <h4><center>New Payment</center></h4>
             <table>
                 <tr>

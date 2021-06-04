@@ -158,19 +158,19 @@ function Analysis(props) {
     };
     return (
         <div className="analysis">
-            <SearchBar 
+            {/*<SearchBar 
             stDateChange={stDateCh} 
             enDateChange={enDateCh} 
             dtCatChange={dtCatCh} 
             hndlSearch={search}
-            />
-
-            <table style={{
-                marginTop: "5px",
+            />*/}
+            <div style={{                
                 marginLeft: "auto",
                 marginRight: "auto",
-                width: "80%"
-                }}><tr><td>
+                width: "fit-content",
+                /*backgroundColor: "black"*/
+                }}>
+            <table><tr><td style={{paddingRight:"50px"}}>
                 <div style={{width: "fit-content"}}>
                     <div className="chart" style={{height:"300px", width:"300px", margin: "0 auto 0 auto"}}>
                         <Doughnut data={dataP} options={options}/>
@@ -208,7 +208,7 @@ function Analysis(props) {
                     </div>
                 </div>
             </td>
-            <td>
+            <td style={{paddingLeft:"50px"}}>
                 <div style={{width: "fit-content"}}>                
                     <table>
                         <tr>
@@ -225,8 +225,8 @@ function Analysis(props) {
                                 </div>
                             </td>
                             <td>
-                                <div className="chart" style={{height:"300px", width:"300px"}}>
-                                    <Doughnut data={dataN} options={options}/>
+                                <div className="chart" style={{height:"200px", width:"400px"}}>
+                                    <Bar data={dataN} options={options}/>
                                 </div>
                             </td>
                         </tr>                    
@@ -244,8 +244,8 @@ function Analysis(props) {
                                 </div>
                             </td>
                             <td style={{paddingTop: "20px"}}>
-                                <div className="chart" style={{height:"300px", width:"300px"}}>
-                                        <Doughnut data={dataV} options={options}/>
+                                <div className="chart" style={{height:"200px", width:"400px"}}>
+                                        <Bar data={dataV} options={options}/>
                                 </div>
                             </td>
                         </tr>
@@ -253,7 +253,7 @@ function Analysis(props) {
                 </div>
             </td>
             </tr>
-            </table>
+            </table></div>
             <div style={{
                 height: "100px",
                 width: "100%"

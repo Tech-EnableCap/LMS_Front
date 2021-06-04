@@ -64,7 +64,7 @@ function App() {
         onClickBank={onClickBank}
         onClickAna={onClickAna}
         onClickMaster={onClickMaster}
-       />
+      />
       {cmp}
       
     </div>

@@ -346,7 +346,7 @@ function Dashboard(props) {
 
     return (
         <div className="dashboard">
-            <div className="dashHeader">
+            {/*<div className="dashHeader">
                 <RepUp 
                 icon="fa fa-upload"
                 wdLabl="Upload Disbursement File"
@@ -357,7 +357,7 @@ function Dashboard(props) {
                 wdLabl="Upload Candidate Equifax"
                 onChange={eqOnChange}
                 />                       
-            </div>
+            </div>*/}
             <div className="dashBody">
                 <SearchBar 
                     hndlSearch={srClick}

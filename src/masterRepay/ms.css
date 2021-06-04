@@ -1,8 +1,8 @@
 .master {
-    transform: translateX(200px);
+    /*transform: translateX(200px);*/
     min-height: 100vh;
     position: absolute;
-    width: 90vw;
+    width: 100vw;
     color: rgb(179, 178, 178);
     background-image: linear-gradient(135deg, #2D3A62, #55375E);
 }
@@ -16,10 +16,12 @@
 .form {
     width: 500px;
     height: auto;
-    margin: 100px auto;
     box-shadow: 5px 5px 5px 5px #0c0c0c;;
-    /*background-color: rgb(206, 57, 114);*/
     padding: 15px;
+}
+
+.align-mid {
+    margin: 100px auto;
 }
 
 .form table {
@@ -64,7 +66,7 @@
 }
 
 .prf_dt .form {
-    margin: 100px 100px; 
+    margin-left: 10px; 
     width: 300px;   
 }
 
@@ -76,19 +78,47 @@
     padding: 5px;
 }
 
-.prf_dt {
-    display: inline-block;
-}
-
 .pmt_sch {
-    display: inline-block;
     width: fit-content;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 5px 5px 5px 5px #0c0c0c;
 }
 
 .pmt_sch .form {
     width: auto;
+    padding: 10px;
+    box-shadow: none;
 }
 
 .pmt_sch .form table{
-    margin: 10px;
+    margin: 0px;
+}
+
+.pmt_sch::after {
+    content: "";
+  }
+  
+  .pmt_sch::-webkit-scrollbar {
+    width:5px;
+  }
+  .pmt_sch::-webkit-slider {
+    height: 5px;
+  }
+  
+  .pmt_sch::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  .pmt_sch::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
+.pmt_hist {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    /*border: 1px solid black;*/
 }

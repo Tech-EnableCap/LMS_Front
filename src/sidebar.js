@@ -1,19 +1,14 @@
-import logo from './logo.svg'
-
 function SideBar(props) {
     return (
-        <div className="sidebar">
-            <div className="sdHeader">
-                ENA LMS
+        <div className="sidebar">            
+            <div className="sdmnu">
+            <div className="sdHeader">ENA LMS</div>
+                <div className="menuItems" onClick={props.onClickAna}><p><i className="fa fa-line-chart"></i> Analysis</p></div>
+                <div className="menuItems" onClick={props.onClickDash}><p><i className="fa fa-address-card-o"></i> Uploaded Files</p></div>                
+                <div className="menuItems" onClick={props.onClickDis}><p><i className="fa fa-money"></i> Disbursal MIS</p></div>
+                <div className="menuItems" onClick={props.onClickBank}><p><i className="fa fa-bank"></i> Bank Upload File</p></div>
+                <div className="menuItems" onClick={props.onClickMaster}><p><i className="fa fa-clock-o"></i> Master Repayment Schedule</p></div>
             </div>
-            <img src={logo} className="prfImg" alt="prf"/>
-            <ul>
-                <li onClick={props.onClickAna}><i className="fa fa-line-chart"></i> Analysis</li>
-                <li onClick={props.onClickDash}><i className="fa fa-address-card-o"></i> Uploaded Files</li>                
-                <li onClick={props.onClickDis}><i className="fa fa-money"></i> Disbursal MIS</li>
-                <li onClick={props.onClickBank}><i className="fa fa-bank"></i> Bank Upload File</li>
-                <li onClick={props.onClickMaster}><i className="fa fa-clock-o"></i> Master Repayment Schedule</li>
-            </ul>
         </div>
     );
 }

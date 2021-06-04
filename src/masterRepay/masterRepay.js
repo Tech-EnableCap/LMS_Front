@@ -1,9 +1,9 @@
 import './ms.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import New_Pmt from './new_pmt';
 import Hist from './hist';
 
-function MasterRepaySch(props) {    
+function MasterRepaySch(props) {  
     const [st, setSt] = useState("hist");
 
     const hndlNew = () => {
@@ -21,7 +21,7 @@ function MasterRepaySch(props) {
         <div className="master">
             <h2><center>Loan Repayment Details</center></h2>
             <h4><center>Loan ID: {props.lid}</center></h4>
-            <div className="canvas">
+            <div className="canvas" id="can">
                 <div className="menu">
                     <label onClick={hndlNew}><p>New Payment</p></label>
                     <label onClick={hndlHist}><p>Payment History</p></label>                    

@@ -51,7 +51,12 @@ function Hist(props) {
             "lid":props.lid
         }
         axios.post(route + "/track_history", config)
-            .then( res => {
+            .then( res => {                
+                if(!("data" in res.data.msg))
+                {
+                    //alert(res.data.msg.error);
+                    return;
+                }
                 setHist({                                          
                     "data":res.data.msg.data
                 });
@@ -63,6 +68,13 @@ function Hist(props) {
         });
     }
     , []);
+
+    useEffect(() => {
+        let el = document.createElement('a');
+        el.setAttribute('href', "#can");
+        el.click();
+        el.remove();
+    }, [hist]);
 
     return (
         <div className="pmt_hist">
@@ -103,9 +115,8 @@ function Hist(props) {
                         <table>
                             <thead>
                                 <tr>
-                                    <td>Recieved Amt. (Rs.)</td>    
-                                    <td>Recieved Date</td>    
-                                    <td>Supposed Recieve Date</td>    
+                                    <td>Recieved Date</td>
+                                    <td>Recieved Amt. (Rs.)</td>                                                                                
                                     <td>Amount Due (Rs.)</td>    
                                     <td>Amount Carried Forward (Rs.)</td>    
                                     <td>Status</td>  
