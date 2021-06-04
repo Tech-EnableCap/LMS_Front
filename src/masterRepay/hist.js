@@ -102,10 +102,10 @@ function Hist(props) {
                         <h4><center>Payment History</center></h4>
                         <table>
                             <thead>
-                                <tr>
-                                    <td>Recieved Amt. (Rs.)</td>    
+                                <tr>                                    
                                     <td>Recieved Date</td>    
-                                    <td>Supposed Recieve Date</td>    
+                                    <td>Recieved Amt. (Rs.)</td>                                        
+                                    {/*<td>Supposed Recieve Date</td>    */}
                                     <td>Amount Due (Rs.)</td>    
                                     <td>Amount Carried Forward (Rs.)</td>    
                                     <td>Status</td>  
