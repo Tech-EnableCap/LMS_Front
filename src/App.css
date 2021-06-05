@@ -200,7 +200,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .dtTab {
-  width: 75vw;
+  width: 95vw;
   max-height: 90vh;
   overflow-x: auto;
   overflow-y: auto;

@@ -4,6 +4,7 @@ import {route} from '../route';
 
 function Hist(props) {
     const [frmData, setFrm] = useState({});
+    const [pHist, setPHist] = useState({});
     const [hist, setHist] = useState({});
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -59,7 +60,7 @@ function Hist(props) {
                     props.isLoad(false);
                     return;
                 }
-                setHist({                                          
+                setPHist({                                          
                     "data":res.data.msg.data
                 });
                 props.isLoad(false);
@@ -73,11 +74,85 @@ function Hist(props) {
     , []);
 
     useEffect(() => {
+        props.isLoad(true);        
+        let st = {
+            po:"Paid On Time",
+            pl:"Paid Late",
+            ad:"Advance Pay",
+            pr:"Partial Pay"
+        }
+
+        let payIdx=1, isEdIdx=6, stIdx=4; //stIdx -> status col
+        let p=0;
+        //console.log(pHist.data);
+        if(!("data" in pHist) || pHist.data.length <= 0)
+            return;
+        let data = Array(pHist.data.length);
+        
+        pHist.data.forEach((dt, idx) => {
+            data[idx] = [...dt];
+        });
+        //console.log(data);
+        /*console.log(pHist.data);
+        data[0][0] = "AM";
+        console.log(pHist.data);*/
+
+        let emi = frmData.emi;
+        //let d = data;
+        //alert();         
+        for(let u=0;u<data.length;u++) {
+            data[u][stIdx] = "";
+            (data[u][isEdIdx] === "ed") ? (data[u][isEdIdx] = "***") : (data[u][isEdIdx] = "---");
+        }     
+
+        let nonZeroIdx = 0;
+        for(nonZeroIdx=data.length-1;nonZeroIdx>=0;nonZeroIdx--) {            
+            if(parseInt(data[nonZeroIdx][payIdx]) > 0)
+                break;
+        }        
+        //console.log("emi:" + emi);
+        for(let i=0;i<=nonZeroIdx;i++) {
+            p += parseInt(data[i][payIdx]);
+            //console.log("pay:" + p); 
+            let totPay = parseInt(Math.floor(p / parseInt(emi)));            
+            let isPar = parseInt(p % parseInt(emi));
+            isPar && (totPay++);           
+            for(let j=0,k=0;(j<data.length)&&(k<totPay);j++) {                                
+                if(data[j][isEdIdx] === "---") {
+                    //data[j][stIdx] = "";
+                    continue;
+                }
+                if(data[j][stIdx] === st.po || data[j][stIdx] === st.ad)    {
+                    k++;
+                    continue;
+                }                
+                console.log(i + ":" + j);
+                if(i == j)
+                    data[j][stIdx] = st.po;
+                else if(j < i)
+                    data[j][stIdx] = st.pl;
+                else if(j > i)
+                    data[j][stIdx] = st.ad;                                
+                
+                if(isPar && k==totPay-1)
+                    data[j][stIdx] += " , " + st.pr;
+                k++;
+            }
+            //console.log("///");
+        }
+
+        //alert();
+        
+
+        setHist({
+            "data": data
+        })
         let el = document.createElement('a');
         el.setAttribute('href', "#can");
         el.click();
-        el.remove();
-    }, [hist]);
+        el.remove();   
+        props.isLoad(false);
+    }, [pHist]);
 
     return (
         <div className="pmt_hist">
