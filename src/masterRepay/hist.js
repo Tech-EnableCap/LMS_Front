@@ -4,13 +4,15 @@ import {route} from '../route';
 
 function Hist(props) {
     const [frmData, setFrm] = useState({});
-    const [pHist, setPHist] = useState({});
     const [hist, setHist] = useState({});
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();  
     var crDate = yyyy + "-" + mm + "-" + dd;
+
+    useEffect(() => search(), []);
+
     const search = () => {
         props.isLoad(true);
         let config = {
@@ -30,9 +32,29 @@ function Hist(props) {
                         "fn":res.data.msg["fn"],//fn
                         "ln":res.data.msg["ln"],//ln
                         "emi":res.data.msg["emi"],//emi
-                        "out":res.data.msg["out"],//emi
-                        "due":res.data.msg["due"],//emi
-                        "status":res.data.msg["status"]//emi                        
+                        "out":res.data.msg["out"],//outstanding
+                        "due":(parseInt(res.data.msg["out"]) ? res.data.msg["due"] : "0"),//total due
+                        "status":res.data.msg["status"]//loan status                        
+                    });
+                    let emi = res.data.msg["emi"];
+                    let conf = {
+                        "lid":props.lid
+                    }
+                    axios.post(route + "/track_history", conf)
+                        .then( res => {                
+                            if(!("data" in res.data.msg))
+                            {
+                                //alert(res.data.msg.error);
+                                props.isLoad(false);
+                                return;
+                            }
+                            processStatus(res.data.msg.data, emi);
+                            props.isLoad(false);
+                        }
+                    )
+                    .catch(err => {
+                        alert("Couldn't fetch info.");
+                        console.log(err);
                     });
                     props.isLoad(false);
                 }
@@ -46,35 +68,7 @@ function Hist(props) {
             );
     }
 
-    useEffect(() => {
-        search();
-        props.isLoad(true);
-        let config = {
-            "lid":props.lid
-        }
-        axios.post(route + "/track_history", config)
-            .then( res => {                
-                if(!("data" in res.data.msg))
-                {
-                    //alert(res.data.msg.error);
-                    props.isLoad(false);
-                    return;
-                }
-                setPHist({                                          
-                    "data":res.data.msg.data
-                });
-                props.isLoad(false);
-            }
-        )
-        .catch(err => {
-            alert("Couldn't fetch info.");
-            console.log(err);
-        });
-    }
-    , []);
-
-    useEffect(() => {
-        props.isLoad(true);        
+    const processStatus = (data, emi) => {
         let st = {
             po:"Paid On Time",
             pl:"Paid Late",
@@ -84,49 +78,34 @@ function Hist(props) {
 
         let payIdx=1, isEdIdx=6, stIdx=4; //stIdx -> status col
         let p=0;
-        //console.log(pHist.data);
-        if(!("data" in pHist) || pHist.data.length <= 0)
+        if(data.length <= 0)
             return;
-        let data = Array(pHist.data.length);
-        
-        pHist.data.forEach((dt, idx) => {
-            data[idx] = [...dt];
-        });
-        //console.log(data);
-        /*console.log(pHist.data);
-        data[0][0] = "AM";
-        console.log(pHist.data);*/
-
-        let emi = frmData.emi;
-        //let d = data;
-        //alert();         
-        for(let u=0;u<data.length;u++) {
-            data[u][stIdx] = "";
-            (data[u][isEdIdx] === "ed") ? (data[u][isEdIdx] = "***") : (data[u][isEdIdx] = "---");
-        }     
-
+             
         let nonZeroIdx = 0;
         for(nonZeroIdx=data.length-1;nonZeroIdx>=0;nonZeroIdx--) {            
             if(parseInt(data[nonZeroIdx][payIdx]) > 0)
                 break;
         }        
-        //console.log("emi:" + emi);
+
+        for(let u=0;u<data.length;u++) {
+            data[u][stIdx] = "";
+            (data[u][isEdIdx] === "ed") ? (data[u][isEdIdx] = "***") : (data[u][isEdIdx] = "---");
+        }
+
         for(let i=0;i<=nonZeroIdx;i++) {
             p += parseInt(data[i][payIdx]);
-            //console.log("pay:" + p); 
+
             let totPay = parseInt(Math.floor(p / parseInt(emi)));            
             let isPar = parseInt(p % parseInt(emi));
             isPar && (totPay++);           
             for(let j=0,k=0;(j<data.length)&&(k<totPay);j++) {                                
-                if(data[j][isEdIdx] === "---") {
-                    //data[j][stIdx] = "";
+                if(data[j][isEdIdx] === "---" || data[j][isEdIdx] === "pd") {
                     continue;
                 }
                 if(data[j][stIdx] === st.po || data[j][stIdx] === st.ad)    {
                     k++;
                     continue;
                 }                
-                console.log(i + ":" + j);
                 if(i == j)
                     data[j][stIdx] = st.po;
                 else if(j < i)
@@ -138,21 +117,17 @@ function Hist(props) {
                     data[j][stIdx] += " , " + st.pr;
                 k++;
             }
-            //console.log("///");
         }
-
-        //alert();
-        
 
         setHist({
             "data": data
         })
+
         let el = document.createElement('a');
         el.setAttribute('href', "#can");
         el.click();
         el.remove();   
-        props.isLoad(false);
-    }, [pHist]);
+    }
 
     return (
         <div className="pmt_hist">
@@ -176,7 +151,7 @@ function Hist(props) {
                         <td><label>EMI Amount (Rs.)</label></td><td><label>{frmData["emi"]}</label></td>
                         </tr>
                         <tr>
-                        <td><label>Total Due (Rs.)<br/><i>*As of today</i></label></td><td><label>{frmData["due"]}</label></td>
+                        <td><label>Total Due + Overdue (Rs.)<br/><i>*As of today</i></label></td><td><label>{frmData["due"]}</label></td>
                         </tr>
                         <tr>
                         <td><label>Total Outstanding (Rs.)<br/></label></td><td><label>{frmData["out"]}</label></td>                        
