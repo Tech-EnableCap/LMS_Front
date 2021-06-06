@@ -1,4 +1,4 @@
-
+import RepUp from './uploadWidget';
 
 function DtTable(props) {
     //let show = (props.show ? "dtTab" : "dtTab hide");
@@ -13,6 +13,16 @@ function DtTable(props) {
                     <div className="navPrv navStl" onClick={props.handlNavPrv}><i className="fa fa-caret-left"></i></div>
                     <div className="navNxt navStl" onClick={props.handlNavNxt}><i className="fa fa-caret-right"></i></div>
                     <div className="navStl" onClick={props.hndlDown}><i className="fa fa-download"></i></div>
+                    <RepUp 
+                    icon="fa fa-upload"
+                    wdLabl="DISB"
+                    onChange={props.disOnChange}
+                    />
+                    <RepUp 
+                    icon="fa fa-upload"
+                    wdLabl="EFX"
+                    onChange={props.eqOnChange}
+                />  
                 </div>
             </div>
             <div className={show}>

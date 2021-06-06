@@ -5,13 +5,19 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 import {route} from '../route';
 
-let lid, fname, lname, stDate, enDate, dtCat="first_inst_date", idx=0;
+let idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
-    //lid = fname = lname = stDate = enDate = 0;
-    dtCat="first_inst_date";
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
+    const [inputVal, setInputVal] = useState({
+        lid:"",
+        fname:"",
+        lname:"",
+        stDate:"",
+        enDate:"",
+        dtCat:""
+    })
     useEffect(() => {
         if(props.dashName === "dash") {
             setDName("Uploaded File");
@@ -144,28 +150,36 @@ function Dashboard(props) {
     
     //Handle searchBar Input Changes....
     const lidCh = (e) => {
-        lid = e.target.value;
+        setInputVal({...inputVal, lid:e.target.value});
     }
 
     const fnameCh = (e) => {
-        fname = e.target.value;
+        setInputVal({...inputVal, fname:e.target.value});
     }
 
     const lnameCh = (e) => {
-        lname = e.target.value;
+        setInputVal({...inputVal, lname:e.target.value});
     }
 
     const stDateCh = (e) => {
-        stDate = e.target.value;
+        setInputVal({...inputVal, stDate:e.target.value});
     }
 
     const enDateCh = (e) => {
-        enDate = e.target.value;
+        setInputVal({...inputVal, enDate:e.target.value});
     }
 
     const dtCatCh = (e) => {
-        dtCat = e.target.value;
+        setInputVal({...inputVal, dtCat:e.target.value});
     }
+    const hndlReset = () => setInputVal({
+        lid:"",
+        fname:"",
+        lname:"",
+        stDate:"",
+        enDate:"",
+        dtCat:""
+    })
     //==================================
 
     //Search raw uploaded record........
@@ -173,26 +187,27 @@ function Dashboard(props) {
         props.isLoad(true);
         let srCr = {};
         let canSend = true;
-        if(lid) {
+        if(inputVal.lid) {
             //alert("lid");
-            srCr["lid"] = lid;
+            srCr["lid"] = inputVal.lid;
         }
-        else if(fname || lname) {
+        else if(inputVal.fname || inputVal.lname) {
             //alert("name");
-            srCr["fname"] = fname;
-            srCr["lname"] = lname;
+            srCr["fname"] = inputVal.fname;
+            srCr["lname"] = inputVal.lname;
         }
-        else if(stDate && enDate) {
+        else if(inputVal.stDate && inputVal.enDate) {
             //alert("date");
-            srCr["stDate"] = stDate;
-            srCr["endDate"] = enDate;
-            srCr["cat"] = dtCat;
+            srCr["stDate"] = inputVal.stDate;
+            srCr["endDate"] = inputVal.enDate;
+            srCr["cat"] = inputVal.dtCat;
         }
         else {
             alert("Invalid search criteria.");
             props.isLoad(false);
             canSend = false;
         }
+        console.log(srCr);
         if(canSend) {
             //srCr["idx"] = "0";
             let url;
@@ -269,20 +284,20 @@ function Dashboard(props) {
         //let srCr = [];
         let crit = {};
         let url;
-        if(lid) {
+        if(inputVal.lid) {
             //alert("lid");
-            crit["lid"] = lid;
+            crit["lid"] = inputVal.lid;
         }
-        else if(fname || lname) {
+        else if(inputVal.fname || inputVal.lname) {
             //alert("name");
-            crit["fname"] = fname;
-            crit["lname"] = lname;
+            crit["fname"] = inputVal.fname;
+            crit["lname"] = inputVal.lname;
         }
-        else if(stDate && enDate) {
+        else if(inputVal.stDate && inputVal.enDate) {
             //alert("date");
-            crit["stDate"] = stDate;
-            crit["endDate"] = enDate;
-            crit["cat"] = dtCat;
+            crit["stDate"] = inputVal.stDate;
+            crit["endDate"] = inputVal.enDate;
+            crit["cat"] = inputVal.dtCat;
         }
         if(props.dashName === "dash") 
             url = route + "/viewupload?idx=-2";
@@ -347,16 +362,7 @@ function Dashboard(props) {
     return (
         <div className="dashboard">
             {/*<div className="dashHeader">
-                <RepUp 
-                icon="fa fa-upload"
-                wdLabl="Upload Disbursement File"
-                onChange={disOnChange}
-                />
-                <RepUp 
-                icon="fa fa-upload"
-                wdLabl="Upload Candidate Equifax"
-                onChange={eqOnChange}
-                />                       
+                                     
             </div>*/}
             <div className="dashBody">
                 <SearchBar 
@@ -367,6 +373,8 @@ function Dashboard(props) {
                     stDateChange={stDateCh} 
                     enDateChange={enDateCh} 
                     dtCatChange={dtCatCh} 
+                    inputVal={inputVal}
+                    hndlReset = {hndlReset}
                 />
                 <DtTable 
                     Data={tbDt}
@@ -375,6 +383,8 @@ function Dashboard(props) {
                     handlNavNxt={srNxt}
                     hndlDown={download}
                     hndlViewMore={props.hndlViewMore}
+                    disOnChange={disOnChange}
+                    eqOnChange={eqOnChange}
                 />
             </div>
         </div>

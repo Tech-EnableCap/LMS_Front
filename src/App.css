@@ -260,7 +260,7 @@ table tbody tr:nth-child(2n) {
 .table .tbHeader {
   color:rgb(200, 199, 199);
   margin-bottom:5px;
-  width: 75%;
+  width: 85%;
   margin-left: auto;
   margin-right: auto;
   display: flex;

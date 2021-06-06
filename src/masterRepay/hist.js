@@ -114,7 +114,7 @@ function Hist(props) {
                     data[j][stIdx] = st.ad;                                
                 
                 if(isPar && k==totPay-1)
-                    data[j][stIdx] += " , " + st.pr;
+                    data[j][stIdx] = st.pr;
                 k++;
             }
         }
@@ -179,7 +179,18 @@ function Hist(props) {
                             </thead>
                             <tbody>
                                 {("data" in hist) && hist["data"].map(
-                                    (row) => (<tr>{row.map((val) => (<td>{val}</td>))}</tr>))}
+                                    (row) => {
+                                        let stl = {};
+                                        if(row[6] === "***")
+                                            stl = {
+                                                backgroundColor: "#4263f5",
+                                                color: "white"
+                                            }
+                                        else 
+                                            stl = {};
+                                        return (<tr style={stl}>{row.map((val) => (<td>{val}</td>))}</tr>);
+                                    }
+                                    )}
                             </tbody>
                         </table>                        
                     </div>

@@ -7,26 +7,16 @@ function RepUpload(props) {
         ipBtn.click();
     }
     let stl = {
-        backgroundColor : "black",
-        width:"200px",
-        margin:"20px",
-        padding:"5px",
-        borderRadius:"10px",
-        cursor:"pointer",
-        userSelect:"none",
+        width:"auto",
+        fontFamily: "'Courier New', Courier, monospace",
         fontSize:"18px",
-        color:"#fff",
-        fontFamily:"'Courier New', Courier, monospace",
-        display: "inline-block",
-        textAlign: "center"
+        padding: "1px 3px 0 3px"
     };
     let istl = {
-        display : "block",
-        width: "100%",
-        marginBottom:"5px"
+        margin:"8px 2px 0px 0"
     }
     return (
-        <div onClick={handleClick} style={stl} className="dashFlBtn">
+        <div onClick={handleClick} style={stl} className="dashFlBtn navStl">
                 <i style={istl} className={props.icon}></i>
                  {props.wdLabl}
                  <input
