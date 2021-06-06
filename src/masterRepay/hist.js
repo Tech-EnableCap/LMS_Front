@@ -55,8 +55,8 @@ function Hist(props) {
                     .catch(err => {
                         alert("Couldn't fetch info.");
                         console.log(err);
+                        props.isLoad(false);
                     });
-                    props.isLoad(false);
                 }
             )
             .catch(
