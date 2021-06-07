@@ -21,7 +21,8 @@ function SearchBar(props) { //Some of the styling elements are in the css...
         height:"40px",
         borderRadius:"20px",
         display: "inline-block",
-        margin: "5px"
+        margin: "5px",
+        fontSize: "12px"
     }
     
     return (
@@ -56,8 +57,8 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 display:"block",
                 textAlign: "right"
                 }}>
-                    <button style={btnStl} onClick={props.hndlReset}>Reset</button>
-                    <button style={btnStl} onClick={props.hndlSearch}>Search</button>
+                    <button style={btnStl} onClick={props.hndlReset}>RESET</button>
+                    <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
                 </li>
             </ul>
         </div>

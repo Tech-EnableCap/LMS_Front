@@ -2,7 +2,17 @@ import RepUp from './uploadWidget';
 
 function DtTable(props) {
     //let show = (props.show ? "dtTab" : "dtTab hide");
-    const show = "dtTab";    
+    const show = "dtTab";   
+    const btstl = {
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        height: "35px",
+        width: "90px",
+        borderRadius: "8px",
+        background:"#3468eb",
+        color:"white",
+        fontSize: "12px"
+    } 
     return (
         <div className="table" id="dashTable">
             <div className="tbHeader">
@@ -46,7 +56,7 @@ function DtTable(props) {
                                             <td>{val}</td>
                                         );
                                     })}
-                                    {(props.tbName === "Master Repayment Schedule") && (row[0].length > 2) && (<td><button name={row[0]} onClick={props.hndlViewMore}>View More</button></td>)}
+                                    {(props.tbName === "Master Repayment Schedule") && (row[0].length > 2) && (<td><button style={btstl} name={row[0]} onClick={props.hndlViewMore} color="primary">VIEW MORE</button></td>)}
                                     {(props.tbName === "Master Repayment Schedule") && (row[0].length <= 2) && (<td></td>)}
                                     </tr>
                                     );                            
