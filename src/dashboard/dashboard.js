@@ -16,7 +16,7 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
-        dtCat:""
+        dtCat:"first_inst_date"
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -178,7 +178,7 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
-        dtCat:""
+        dtCat:"first_inst_date"
     })
     //==================================
 
