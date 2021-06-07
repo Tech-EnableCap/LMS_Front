@@ -62,6 +62,12 @@ function New_Pmt(props) {
             return;
         }
 
+        if(p_amt <= 0) {
+            alert("Payment amount should be greater than 0.");
+            props.isLoad(false);
+            return;
+        }
+
         let config = {
             "lid":props.lid,            
             "pmt":p_amt,
