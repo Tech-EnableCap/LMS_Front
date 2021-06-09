@@ -38,7 +38,11 @@ function Dashboard(props) {
             let srCr = {};
             srCr["stDate"] = yyyy + "-" + mm + "-" + dd;
             srCr["endDate"] = yyyy + "-" + mm + "-" + dd;
-            axios.post(route + "/search_repay?idx=0", srCr)
+            const header = {
+                Authorization: "Bearer " + localStorage.enalmsjwttkn
+            }
+            console.log(header);
+            axios.post(route + "/search_repay?idx=0", srCr, header)
                 .then(res => {
                     //alert("OK");
                     //console.log(res);
@@ -219,8 +223,10 @@ function Dashboard(props) {
                 url = route + "/bankupload?idx=" + idx;
             else if(props.dashName === "master")
                 url = route + "/search_repay?idx=" + idx;
-            
-            axios.post(url, srCr)
+            const header = {
+                Authorization: "Bearer " + localStorage.enalmsjwttkn
+            }
+            axios.post(url, srCr, header)
                 .then(res => {
                     //alert("OK");
                     //console.log(res);
@@ -306,8 +312,13 @@ function Dashboard(props) {
         else if(props.dashName === "bank") 
             url = route + "/bankupload?idx=-2";
         else if(props.dashName === "master")
-            url = route + "/search_repay?idx=-2" ;
-        axios.post(url, crit)
+            url = route + "/search_repay?idx=-2";
+        
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+
+        axios.post(url, crit, header)
         .then(res => {
             
             if(!("data" in res.data.msg)) {                

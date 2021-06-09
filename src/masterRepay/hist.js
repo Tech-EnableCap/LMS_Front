@@ -19,7 +19,10 @@ function Hist(props) {
             "lid":props.lid,
             "date":crDate
         }
-        axios.post(route + "/prfdt", config)
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.post(route + "/prfdt", config, header)
             .then(
                 res => {
                     if("error" in res.data.msg) {
@@ -40,7 +43,10 @@ function Hist(props) {
                     let conf = {
                         "lid":props.lid
                     }
-                    axios.post(route + "/track_history", conf)
+                    const header = {
+                        Authorization: "Bearer " + localStorage.enalmsjwttkn
+                    }
+                    axios.post(route + "/track_history", conf, header)
                         .then( res => {                
                             if(!("data" in res.data.msg))
                             {
@@ -181,14 +187,21 @@ function Hist(props) {
                                 {("data" in hist) && hist["data"].map(
                                     (row) => {
                                         let stl = {};
-                                        if(row[6] === "***")
+                                        let stl1 = {};
+                                        if(row[6] === "***") {
                                             stl = {
-                                                backgroundColor: "#4263f5",
+                                                backgroundColor: "rgba(20, 135, 207, 1)",
                                                 color: "white"
                                             }
+                                            stl1 = {
+                                                borderTop: "2px solid rgba(22, 154, 247, 1)",
+                                                borderBottom: "2px solid rgba(22, 154, 247, 1)"
+                                            }
+                                        }
                                         else 
                                             stl = {};
-                                        return (<tr style={stl}>{row.map((val) => (<td>{val}</td>))}</tr>);
+                                            stl1 = {};
+                                        return (<tr style={stl}>{row.map((val) => (<td style={stl1}>{val}</td>))}</tr>);
                                     }
                                     )}
                             </tbody>

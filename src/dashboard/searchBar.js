@@ -9,7 +9,8 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     };
 
     let srStl = {
-        backgroundColor:"rgba(87,87, 85, 0.2)",
+        backgroundColor:"rgba(87,87, 85, 0.1)",
+        borderRadius: "10px",
         paddingLeft:"20px",
         paddingRight:"20px",
         paddingTop:"3px",

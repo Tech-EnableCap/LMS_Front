@@ -13,7 +13,10 @@ function Analysis(props) {
     const [dataP, setDataP] = useState({});
     useEffect(() => {
         props.isLoad(true);
-        axios.post(route + "/analysis").then((res) => {
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.post(route + "/analysis", "", header).then((res) => {
             setAnData(res.data.msg);            
             props.isLoad(false);
         })        
@@ -110,8 +113,11 @@ function Analysis(props) {
             "stDate":startDate,
             "endDate":endDate,
             "cat":dateCat
-        }        
-        axios.post(route + "/analysis", crit).then((res) => {
+        }   
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }     
+        axios.post(route + "/analysis", crit, header).then((res) => {
             if(!("monthly" in res.data.msg)) {
                 alert (res.data.msg.error);
                 setAnData({});     

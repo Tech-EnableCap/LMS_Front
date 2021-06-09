@@ -18,7 +18,10 @@ function New_Pmt(props) {
             "lid":props.lid,
             "date":crDate
         }
-        axios.post(route + "/prfdt", config)
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.post(route + "/prfdt", config, header)
             .then(
                 res => {
                     if("error" in res.data.msg) {
@@ -32,7 +35,7 @@ function New_Pmt(props) {
                         "ln":res.data.msg["ln"],//ln
                         "emi":res.data.msg["emi"],//emi
                         "out":res.data.msg["out"],//emi
-                        "due":res.data.msg["due"],//emi
+                        "due":(parseInt(res.data.msg["out"]) === 0 ? "0" : res.data.msg["due"]),//emi
                     });
                     props.isLoad(false);
                 }
@@ -75,7 +78,10 @@ function New_Pmt(props) {
             "rem":rem
         }
         //console.log(config);
-        axios.post(route + "/repay_track", config)
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.post(route + "/repay_track", config, header)
             .then(res => {
                 if("error" in res.data.msg) {
                     alert(res.data.msg.error);
@@ -125,7 +131,7 @@ function New_Pmt(props) {
                 <td><label>EMI Amount (Rs.)</label></td><td><label>{frmData["emi"]}</label></td>
                 </tr>
                 <tr>
-                <td><label>Total Due (Rs.)<br/><i>*As of today</i></label></td><td><label>{frmData["due"]}</label></td>
+                <td><label>Total Due + Overdue (Rs.)<br/><i>*As of today</i></label></td><td><label>{frmData["due"]}</label></td>
                 </tr>
                 <tr>
                 <td><label>Total Outstanding (Rs.)<br/></label></td><td><label>{frmData["out"]}</label></td>

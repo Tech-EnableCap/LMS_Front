@@ -1,0 +1,107 @@
+:root {
+    --grdBgBtm: linear-gradient(to bottom, #1a1919, rgb(82, 20, 43));
+    --grdBgTop: linear-gradient(to top, #1a1919, rgb(126, 33, 68));
+}
+
+.log_cnv {
+    background-image: var(--grdBgBtm);
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logCard {
+    height: 30rem;
+    width: 25rem;
+    padding: 5px;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.topSec {
+    height: 65%;
+    width: 99%;
+    border-top: 2px solid rgb(3, 155, 216);
+    border-right: 2px solid rgb(3, 155, 216);
+    border-left: 2px solid rgb(3, 155, 216);
+}
+
+.bottomSec {
+    margin-top: 2.8rem;
+    width: 99%;
+    height: 25%;
+    border-bottom: 2px solid rgb(7, 165, 2);
+    border-right: 2px solid rgb(7, 165, 2);
+    border-left: 2px solid rgb(7, 165, 2);
+}
+
+.topSec img {
+    display: block;
+    width:fit-content;
+    margin: 5rem auto 0 auto;
+    height: 10rem;
+    width: 10rem;
+}
+
+.topSec .lock {
+    margin: 5rem auto 1rem auto;
+}
+
+.topSec .ip input {
+    display: inline-block;
+    font-size: 1rem;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid rgb(3, 155, 216);
+    transition: border 0.5s ease-in-out;
+    margin: 0 0 0 1rem;
+}
+
+.topSec .ip input:focus {
+    outline: none;
+    border-bottom: 1px solid rgb(7, 165, 2);
+}
+
+.topSec button {
+    display:block;
+    margin: 3rem auto 0 auto;
+    font-size: 0.8rem;
+    height: 2rem;
+    width: 5rem;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    background-color:rgb(3, 155, 216);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.topSec button:hover {
+    background-color:rgb(7, 126, 173);
+}
+
+.topSec button:focus {
+    background-color:rgb(7, 173, 109);
+}
+
+.topSec .ip img {
+    height: 2.5rem;
+    width: 2.5rem;
+    display: inline-block;
+    margin: 0;
+}
+
+.topSec .ip {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin: 0 auto 1rem auto;
+}
