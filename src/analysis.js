@@ -16,7 +16,7 @@ function Analysis(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.post(route + "/analysis", "", header).then((res) => {
+        axios.post(route + "/analysis", "", {headers:header}).then((res) => {
             setAnData(res.data.msg);            
             props.isLoad(false);
         })        
@@ -117,7 +117,7 @@ function Analysis(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }     
-        axios.post(route + "/analysis", crit, header).then((res) => {
+        axios.post(route + "/analysis", crit, {headers:header}).then((res) => {
             if(!("monthly" in res.data.msg)) {
                 alert (res.data.msg.error);
                 setAnData({});     

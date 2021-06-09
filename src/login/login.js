@@ -45,7 +45,7 @@ function Login(props) {
                 }
                 console.log(res.data.msg);
                 console.log(config);
-                    
+                localStorage.email = ipVal.email;
                 localStorage.enalmsjwttkn = res.data.msg.token;
                 props.hndlLogIn();
                 props.isLoad(false);

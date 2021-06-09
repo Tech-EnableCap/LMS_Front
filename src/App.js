@@ -6,7 +6,7 @@ import Dashboard from './dashboard/dashboard';
 import Analysis from './analysis';
 import MasterRepay from './masterRepay/masterRepay';
 import Login from './login/login';
-let lid;
+let lid,pg;
 function App() {  
   useEffect(() => {
     if(typeof(Storage) === "undefined") {
@@ -15,7 +15,6 @@ function App() {
     }
   }
   ,[]);
-  let pg = (("curPgae" in localStorage) ? localStorage.curPage : "login");
   const [sdBarSt, setSd] = useState("login"); //change default value to "ana"
   const [hide, setHide] = useState(true);  
   const onClickBank = () => {
@@ -50,6 +49,8 @@ const hndlLogin = () => {
   const [cmp, setCmp] = useState();
   useEffect( () => {
     localStorage.curPage=sdBarSt;
+    if(localStorage.enalmsjwttkn && sdBarSt==="login")
+      setSd("ana");
     setCmp(
       () => {
         if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "master") 
@@ -108,12 +109,54 @@ const hndlLogin = () => {
     }
     );
   }, [sdBarSt]);
+
+  const logout = () => {
+    localStorage.clear();
+    setSd("login");
+  }
+
   return (
     <div className="App">
       <Loader hide={hide}/>      
       
       {cmp}
-      
+      {((sdBarSt !== "login") && (<div onClick={logout} style={{
+        position:"fixed",
+        bottom:"0",
+        right:"0",
+        color:"white",
+        height:"2rem",
+        width:"5rem",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        margin:"0.5rem",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        borderRadius: "0.5rem",
+        fontSize:"0.8rem",
+        cursor:"pointer"
+      }}>
+        <label style={{cursor:"pointer"}}>LOGOUT</label>
+      </div>))}
+      <div style={{
+        position:"fixed",
+        bottom:"0",
+        left:"0",
+        color:"white",
+        height:"2rem",
+        width:"auto",
+        padding:"0.2rem 0.5rem 0.2rem 0.5rem",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        margin:"0.5rem",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        borderRadius: "0.5rem",
+        fontSize:"0.8rem",
+        cursor:"pointer"
+      }}>
+        <label style={{cursor:"pointer"}}>{localStorage.email}</label>
+      </div>
     </div>
   );
 }

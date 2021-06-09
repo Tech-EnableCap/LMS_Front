@@ -42,7 +42,7 @@ function Dashboard(props) {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
             console.log(header);
-            axios.post(route + "/search_repay?idx=0", srCr, header)
+            axios.post(route + "/search_repay?idx=0", srCr, {headers:header})
                 .then(res => {
                     //alert("OK");
                     //console.log(res);
@@ -226,7 +226,7 @@ function Dashboard(props) {
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
-            axios.post(url, srCr, header)
+            axios.post(url, srCr, {headers:header})
                 .then(res => {
                     //alert("OK");
                     //console.log(res);
@@ -318,7 +318,7 @@ function Dashboard(props) {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
 
-        axios.post(url, crit, header)
+        axios.post(url, crit, {headers:header})
         .then(res => {
             
             if(!("data" in res.data.msg)) {                

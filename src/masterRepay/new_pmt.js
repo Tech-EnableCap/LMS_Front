@@ -21,7 +21,7 @@ function New_Pmt(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.post(route + "/prfdt", config, header)
+        axios.post(route + "/prfdt", config, {headers:header})
             .then(
                 res => {
                     if("error" in res.data.msg) {
@@ -81,7 +81,7 @@ function New_Pmt(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.post(route + "/repay_track", config, header)
+        axios.post(route + "/repay_track", config, {headers:header})
             .then(res => {
                 if("error" in res.data.msg) {
                     alert(res.data.msg.error);

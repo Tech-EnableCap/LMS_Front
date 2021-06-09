@@ -22,7 +22,7 @@ function Hist(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.post(route + "/prfdt", config, header)
+        axios.post(route + "/prfdt", config, {headers:header})
             .then(
                 res => {
                     if("error" in res.data.msg) {
@@ -46,7 +46,7 @@ function Hist(props) {
                     const header = {
                         Authorization: "Bearer " + localStorage.enalmsjwttkn
                     }
-                    axios.post(route + "/track_history", conf, header)
+                    axios.post(route + "/track_history", conf, {headers:header})
                         .then( res => {                
                             if(!("data" in res.data.msg))
                             {
