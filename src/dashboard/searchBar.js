@@ -58,6 +58,21 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 display:"block",
                 textAlign: "right"
                 }}>
+                    <div style={{
+                        display: "inline-block",
+                        textAlign: "left",
+                        marginRight: "1rem",
+                    }}>
+                        <label>Company</label><br/>
+                        <select style={{
+                            height:"2rem",
+                            padding: "0.2rem",
+                            marginTop:"0.2rem"
+                        }} name="company" id="company" value={props.inputVal.comp} onChange={props.compChange} >
+                            <option value="Enablecap">EnableCap</option>
+                            <option value="Entitle">Entitle</option>                        
+                        </select>
+                    </div>
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
                 </li>

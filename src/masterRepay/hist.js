@@ -112,14 +112,14 @@ function Hist(props) {
                     k++;
                     continue;
                 }                
-                if(i == j)
+                if(i === j)
                     data[j][stIdx] = st.po;
                 else if(j < i)
                     data[j][stIdx] = st.pl;
                 else if(j > i)
                     data[j][stIdx] = st.ad;                                
                 
-                if(isPar && k==totPay-1)
+                if(isPar && k===totPay-1)
                     data[j][stIdx] = st.pr;
                 k++;
             }

@@ -16,6 +16,7 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
+        comp:"Enablecap",
         dtCat:"first_inst_date"
     })
     useEffect(() => {
@@ -109,6 +110,9 @@ function Dashboard(props) {
 
     //Uploading disbusrsement file......
     const disOnChange = (e) => {
+        let cnf = window.confirm("Your are uploading file for " + inputVal.comp);
+        if(!cnf)
+            return;
         let file = e.target.files[0];
         e.target.value = null;
         if(file === undefined)
@@ -123,7 +127,7 @@ function Dashboard(props) {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function() {
-        upload("disbursement", reader.result);
+            upload("disbursement_"+inputVal.comp, reader.result);
         };
         //==========================
     }
@@ -145,7 +149,7 @@ function Dashboard(props) {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function() {
-        upload("efx", reader.result);
+            upload("efx", reader.result);
         };
         //==========================
     }
@@ -176,6 +180,7 @@ function Dashboard(props) {
     const dtCatCh = (e) => {
         setInputVal({...inputVal, dtCat:e.target.value});
     }
+    
     const hndlReset = () => setInputVal({
         lid:"",
         fname:"",
@@ -184,9 +189,13 @@ function Dashboard(props) {
         enDate:"",
         dtCat:"first_inst_date"
     })
+
+    const compChange = (e) => {
+        setInputVal({...inputVal, comp:e.target.value});
+    }
     //==================================
 
-    //Search raw uploaded record........
+    //Search through uploaded records........
     const search = (isNav=false) => {
         props.isLoad(true);
         let srCr = {};
@@ -211,7 +220,9 @@ function Dashboard(props) {
             props.isLoad(false);
             canSend = false;
         }
-        console.log(srCr);
+        srCr["comp"] = inputVal.comp;
+
+        //console.log(srCr);
         if(canSend) {
             //srCr["idx"] = "0";
             let url;
@@ -264,6 +275,7 @@ function Dashboard(props) {
     //==================================
     const srClick = () => {
         idx = 0;
+        //alert(inputVal.comp);
         search();        
     }
     const srNxt = () => {
@@ -305,6 +317,7 @@ function Dashboard(props) {
             crit["endDate"] = inputVal.enDate;
             crit["cat"] = inputVal.dtCat;
         }
+        crit["comp"] = inputVal.comp;
         if(props.dashName === "dash") 
             url = route + "/viewupload?idx=-2";
         else if(props.dashName === "dis") 
@@ -386,6 +399,7 @@ function Dashboard(props) {
                     dtCatChange={dtCatCh} 
                     inputVal={inputVal}
                     hndlReset = {hndlReset}
+                    compChange={compChange}
                 />
                 <DtTable 
                     Data={tbDt}

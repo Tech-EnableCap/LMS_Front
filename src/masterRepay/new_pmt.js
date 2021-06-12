@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {route} from '../route';
 
-function New_Pmt(props) {
+function NewPmt(props) {
     const [p_amt, setPAmt] = useState();
     const [rem, setRem] = useState();    
     var today = new Date();
@@ -153,4 +153,4 @@ function New_Pmt(props) {
     );
 }
 
-export default New_Pmt;
+export default NewPmt;

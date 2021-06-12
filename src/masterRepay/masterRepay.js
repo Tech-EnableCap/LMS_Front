@@ -1,6 +1,6 @@
 import './ms.css';
 import {useState, useEffect} from 'react';
-import New_Pmt from './new_pmt';
+import NewPmt from './new_pmt';
 import Hist from './hist';
 
 function MasterRepaySch(props) {  
@@ -15,7 +15,7 @@ function MasterRepaySch(props) {
     }
 
     let sh;
-    (st === "new") && (sh=<New_Pmt lid={props.lid} isLoad={props.isLoad} />);
+    (st === "new") && (sh=<NewPmt lid={props.lid} isLoad={props.isLoad} />);
     (st === "hist") && (sh=<Hist lid={props.lid} isLoad={props.isLoad} />);
     return (
         <div className="master">
