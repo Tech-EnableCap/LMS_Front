@@ -39,6 +39,7 @@ function Dashboard(props) {
             let srCr = {};
             srCr["stDate"] = yyyy + "-" + mm + "-" + dd;
             srCr["endDate"] = yyyy + "-" + mm + "-" + dd;
+            srCr["comp"] = inputVal.comp;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
