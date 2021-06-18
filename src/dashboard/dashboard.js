@@ -196,7 +196,9 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
-        dtCat:"first_inst_date"
+        dtCat:"first_inst_date",
+        comp:"Enablecap"
+
     })
 
     const compChange = (e) => {
