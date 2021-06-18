@@ -191,14 +191,13 @@ function Dashboard(props) {
     }
     
     const hndlReset = () => setInputVal({
+        ...inputVal,
         lid:"",
         fname:"",
         lname:"",
         stDate:"",
         enDate:"",
-        dtCat:"first_inst_date",
-        comp:"Enablecap"
-
+        dtCat:"first_inst_date"
     })
 
     const compChange = (e) => {
