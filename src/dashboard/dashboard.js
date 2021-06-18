@@ -87,6 +87,7 @@ function Dashboard(props) {
         let config = {
             headers: {
                 "cors": "no-cors",
+                "Authorization": "Bearer " + localStorage.enalmsjwttkn
             },
             onUploadProgress: function(progressEvent) {
                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
@@ -97,7 +98,7 @@ function Dashboard(props) {
         let frmData = {};
         frmData[key] = fl;
     
-        //console.log(frmData);
+        console.log(frmData);
         axios.post(route, frmData, config).then((res) => {
             if("error" in res.data.msg) {
                 alert("Something went wrong.");
