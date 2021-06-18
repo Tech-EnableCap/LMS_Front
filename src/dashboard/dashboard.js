@@ -97,8 +97,14 @@ function Dashboard(props) {
         let frmData = {};
         frmData[key] = fl;
     
-        console.log(frmData);
-        axios.post(route, frmData, config).then(() => {
+        //console.log(frmData);
+        axios.post(route, frmData, config).then((res) => {
+            if("error" in res.data.msg) {
+                alert("Something went wrong.");
+                console.log(res.data.msg.error);
+                return;
+            }
+
             alert("Successfully Uploaded.");
             props.isLoad(false);
         }).catch(e => {

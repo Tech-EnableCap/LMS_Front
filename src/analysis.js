@@ -17,6 +17,10 @@ function Analysis(props) {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
         axios.post(route + "/analysis", "", {headers:header}).then((res) => {
+            if("error" in res.data.msg) {
+                localStorage.clear();
+                window.location.reload();
+            }
             setAnData(res.data.msg);            
             props.isLoad(false);
         })        
