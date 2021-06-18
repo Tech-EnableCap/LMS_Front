@@ -18,8 +18,10 @@ function Analysis(props) {
         }
         axios.post(route + "/analysis", "", {headers:header}).then((res) => {
             if("error" in res.data.msg) {
-                localStorage.clear();
-                window.location.reload();
+                if(res.data.msg.error === "token is missing") {
+                    localStorage.clear();
+                    window.location.reload();
+                }
             }
             setAnData(res.data.msg);            
             props.isLoad(false);
