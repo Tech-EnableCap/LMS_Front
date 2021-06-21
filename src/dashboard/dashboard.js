@@ -28,6 +28,8 @@ function Dashboard(props) {
         }
         else if(props.dashName === "bank") {
             setDName("Bank Upload File");
+        }else if(props.dashName === "equifax"){
+            setDName("Generate Equifax Report");
         }
         else if(props.dashName === "master") {
             props.isLoad(true);
@@ -245,6 +247,8 @@ function Dashboard(props) {
                 url = route + "/bankupload?idx=" + idx;
             else if(props.dashName === "master")
                 url = route + "/search_repay?idx=" + idx;
+            else if(props.dashName === "equifax")
+                url = route + "/genefx?idx=" + idx;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
@@ -337,6 +341,8 @@ function Dashboard(props) {
             url = route + "/bankupload?idx=-2";
         else if(props.dashName === "master")
             url = route + "/search_repay?idx=-2";
+        else if(props.dashName === "equifax")
+            url = route + "/genefx?idx=-2";
         
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn

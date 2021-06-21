@@ -29,6 +29,9 @@ function App() {
   const onClickAna = () => {
     setSd("ana");
   }
+  const onClickEfx = () => {
+    setSd("equifax");
+  }
   const onClickMaster = () => {
     setSd("master");
   }
@@ -53,7 +56,7 @@ const hndlLogin = () => {
       setSd("ana");
     setCmp(
       () => {
-        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "master") 
+        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master") 
           return (
             <section>
               <Sidebar
@@ -61,6 +64,7 @@ const hndlLogin = () => {
               onClickDash={onClickDash}
               onClickBank={onClickBank}
               onClickAna={onClickAna}
+              onClickEfx={onClickEfx}
               onClickMaster={onClickMaster}
               />
               <Dashboard 
@@ -78,6 +82,7 @@ const hndlLogin = () => {
                 onClickDash={onClickDash}
                 onClickBank={onClickBank}
                 onClickAna={onClickAna}
+                onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
               />
               <Analysis 
@@ -93,6 +98,7 @@ const hndlLogin = () => {
                 onClickDash={onClickDash}
                 onClickBank={onClickBank}
                 onClickAna={onClickAna}
+                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
               />
             
