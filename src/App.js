@@ -159,7 +159,8 @@ const hndlLogin = () => {
         alignItems:"center",
         borderRadius: "0.5rem",
         fontSize:"0.8rem",
-        cursor:"pointer"
+        cursor:"pointer",
+        zIndex:"2"
       }}>
         <label style={{cursor:"pointer"}}>{localStorage.email}</label>
       </div>
