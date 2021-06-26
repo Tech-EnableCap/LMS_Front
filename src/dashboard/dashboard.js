@@ -17,7 +17,8 @@ function Dashboard(props) {
         stDate:"",
         enDate:"",
         comp:"Enablecap",
-        dtCat:"first_inst_date"
+        dtCat:"first_inst_date",
+        status:"ongoing"
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -191,6 +192,10 @@ function Dashboard(props) {
     const dtCatCh = (e) => {
         setInputVal({...inputVal, dtCat:e.target.value});
     }
+
+    const statusHandler = (e) => {
+        setInputVal({...inputVal, status:e.target.value});
+    }
     
     const hndlReset = () => setInputVal({
         ...inputVal,
@@ -233,6 +238,11 @@ function Dashboard(props) {
             canSend = false;
         }
         srCr["comp"] = inputVal.comp;
+        if(props.dashName === "equifax"){
+            srCr["status"] = inputVal.status;
+        }
+
+        console.log(srCr);
 
         //console.log(srCr);
         if(canSend) {
@@ -411,11 +421,13 @@ function Dashboard(props) {
                     fnameChange={fnameCh} 
                     lnameChange={lnameCh} 
                     stDateChange={stDateCh} 
-                    enDateChange={enDateCh} 
+                    enDateChange={enDateCh}
+                    handleStatus={statusHandler}
                     dtCatChange={dtCatCh} 
                     inputVal={inputVal}
                     hndlReset = {hndlReset}
                     compChange={compChange}
+                    dname={props.dashName}
                 />
                 <DtTable 
                     Data={tbDt}

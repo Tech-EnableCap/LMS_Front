@@ -25,6 +25,27 @@ function SearchBar(props) { //Some of the styling elements are in the css...
         margin: "5px",
         fontSize: "12px"
     }
+
+    let element_block=null;
+    if(props.dname==="equifax"){
+        element_block=(
+            <div style={{
+                display: "inline-block",
+                textAlign: "left",
+                marginRight: "1rem",
+            }}>
+                <label>Loan Status</label><br/>
+                <select style={{
+                    height:"2rem",
+                    padding: "0.2rem",
+                    marginTop:"0.2rem"
+                }} name="loan" id="loan" value={props.inputVal.status} onChange={props.handleStatus}>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="complete">Completed</option>                       
+                </select>
+            </div>
+        );
+    }
     
     return (
         <div className="searchBar" style={srStl}>
@@ -58,6 +79,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 display:"block",
                 textAlign: "right"
                 }}>
+                    {element_block}
                     <div style={{
                         display: "inline-block",
                         textAlign: "left",
@@ -72,7 +94,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                             <option value="Enablecap">EnableCap</option>
                             <option value="Entitle">Entitle</option>                        
                         </select>
-                    </div>
+                        </div>
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
                 </li>
