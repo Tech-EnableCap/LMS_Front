@@ -135,6 +135,7 @@ function Hist(props) {
         el.remove();   
     }
 
+
     return (
         <div className="pmt_hist">
             <div className="prf_dt">

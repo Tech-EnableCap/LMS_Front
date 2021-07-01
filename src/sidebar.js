@@ -11,7 +11,7 @@ function SideBar(props) {
                 <div className="menuItems" onClick={props.onClickBank}><p><i className="fa fa-bank"></i> <label className="sdLabel">Bank Upload File</label></p></div>
                 <div className="menuItems" onClick={props.onClickEfx}><p><i className="fa fa-fax"></i> <label className="sdLabel">Equifax</label></p></div>
                 <div className="menuItems" onClick={props.onClickMaster}><p><i className="fa fa-clock-o"></i> <label className="sdLabel">Master Repayment Schedule</label></p></div>
-                <div className="menuItems" onClick={props.onClickMaster}><p><i className="fa fa-bar-chart"></i> <label className="sdLabel">Loan Performance Report</label></p></div>
+                <div className="menuItems" onClick={props.onClickStatus}><p><i className="fa fa-bar-chart"></i> <label className="sdLabel">Loan Performance Report</label></p></div>
             </div>
         </div>
     );

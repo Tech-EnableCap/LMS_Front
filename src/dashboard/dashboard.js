@@ -18,7 +18,8 @@ function Dashboard(props) {
         enDate:"",
         comp:"Enablecap",
         dtCat:"first_inst_date",
-        status:"ongoing"
+        status:"ongoing",
+        loan_status:""
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -31,8 +32,9 @@ function Dashboard(props) {
             setDName("Bank Upload File");
         }else if(props.dashName === "equifax"){
             setDName("Generate Equifax Report");
-        }
-        else if(props.dashName === "master") {
+        }else if(props.dashName === "report_status"){
+            setDName("View loan status")
+        }else if(props.dashName === "master") {
             props.isLoad(true);
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
@@ -196,6 +198,10 @@ function Dashboard(props) {
     const statusHandler = (e) => {
         setInputVal({...inputVal, status:e.target.value});
     }
+
+    const loanStatusHandler = (e) => {
+        setInputVal({...inputVal, loan_status:e.target.value});
+    }
     
     const hndlReset = () => setInputVal({
         ...inputVal,
@@ -204,6 +210,7 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
+        loan_status:"",
         dtCat:"first_inst_date"
     })
 
@@ -232,7 +239,10 @@ function Dashboard(props) {
             srCr["endDate"] = inputVal.enDate;
             srCr["cat"] = inputVal.dtCat;
         }
-        else {
+        else if(inputVal.loan_status){
+            srCr["loan_status"] = inputVal.loan_status;
+        }
+        else{
             alert("Invalid search criteria.");
             props.isLoad(false);
             canSend = false;
@@ -240,6 +250,9 @@ function Dashboard(props) {
         srCr["comp"] = inputVal.comp;
         if(props.dashName === "equifax"){
             srCr["status"] = inputVal.status;
+        }
+        if(props.dashName === "report_status"){
+            srCr["loan_status"] = inputVal.loan_status
         }
 
         console.log(srCr);
@@ -258,6 +271,8 @@ function Dashboard(props) {
                 url = route + "/search_repay?idx=" + idx;
             else if(props.dashName === "equifax")
                 url = route + "/genefx?idx=" + idx;
+            else if(props.dashName === "report_status")
+                url = route + "/view_report?idx=" + idx;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
@@ -340,6 +355,8 @@ function Dashboard(props) {
             crit["stDate"] = inputVal.stDate;
             crit["endDate"] = inputVal.enDate;
             crit["cat"] = inputVal.dtCat;
+        }else if(inputVal.loan_status){
+            crit["loan_status"] = inputVal.loan_status;
         }
         crit["comp"] = inputVal.comp;
         if(props.dashName === "dash") 
@@ -352,7 +369,8 @@ function Dashboard(props) {
             url = route + "/search_repay?idx=-2";
         else if(props.dashName === "equifax")
             url = route + "/genefx?idx=-2";
-        
+        else if(props.dashName === "report_status")
+            url = route + "/view_report?idx=-2";
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
@@ -428,6 +446,7 @@ function Dashboard(props) {
                     hndlReset = {hndlReset}
                     compChange={compChange}
                     dname={props.dashName}
+                    handleLoanStatus={loanStatusHandler}
                 />
                 <DtTable 
                     Data={tbDt}

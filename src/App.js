@@ -35,6 +35,9 @@ function App() {
   const onClickMaster = () => {
     setSd("master");
   }
+  const onClickStatus = () => {
+    setSd("report_status")
+  }
   const isLoad = (e) => {
     setHide(!e);
   }
@@ -56,7 +59,7 @@ const hndlLogin = () => {
       setSd("ana");
     setCmp(
       () => {
-        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master") 
+        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master" || sdBarSt === "report_status") 
           return (
             <section>
               <Sidebar
@@ -66,6 +69,7 @@ const hndlLogin = () => {
               onClickAna={onClickAna}
               onClickEfx={onClickEfx}
               onClickMaster={onClickMaster}
+              onClickStatus={onClickStatus}
               />
               <Dashboard 
               dashName={sdBarSt}
@@ -84,6 +88,7 @@ const hndlLogin = () => {
                 onClickAna={onClickAna}
                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
+                onClickStatus={onClickStatus}
               />
               <Analysis 
               isLoad={isLoad}  
@@ -98,8 +103,9 @@ const hndlLogin = () => {
                 onClickDash={onClickDash}
                 onClickBank={onClickBank}
                 onClickAna={onClickAna}
-                 onClickEfx={onClickEfx}
+                onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
+                onClickStatus={onClickStatus}
               />
             
               <MasterRepay lid={lid} isLoad={isLoad}/>
