@@ -1,0 +1,18 @@
+printf "Git Pull ? (Y | N)"
+read git
+if [ $git == 'Y' ]
+then
+echo "Pulling latest version from github..."
+git pull
+fi
+printf "NPM Install ? (Y | N)"
+read cn
+if [ $cn == 'Y' ]
+then
+echo "Installing npm package files..."
+npm install
+fi
+npm run build
+echo "Copying to nginx folder..."
+sudo cp -r build /var/www/lms_front
+echo "Successfully Copied"
