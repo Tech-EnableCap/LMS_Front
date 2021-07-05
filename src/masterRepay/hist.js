@@ -134,7 +134,28 @@ function Hist(props) {
         el.click();
         el.remove();   
     }
+    
+    let stl = {
+        display: "block",
+        padding: "2px",
+        width: "auto",
+        height: "auto",
+        backgroundColor: "red",
+        color: "white",
+        borderRadius: "2px"
+    }
 
+    let stl1 = {
+        display: "block",
+        padding: "2px",
+        width: "auto",
+        height: "auto",
+        backgroundColor: "green",
+        color: "white",
+        borderRadius: "2px"
+    }
+
+    let stl_f = (("status" in frmData && String(frmData["status"])==="overdue,halted") ? stl : stl1)
 
     return (
         <div className="pmt_hist">
@@ -164,7 +185,7 @@ function Hist(props) {
                         <td><label>Total Outstanding (Rs.)<br/></label></td><td><label>{frmData["out"]}</label></td>                        
                         </tr>                    
                         <tr>
-                        <td><label>Loan Status<br/></label></td><td><label>{frmData["status"]}</label></td>                        
+                        <td><label>Loan Status<br/></label></td><td><label style={stl_f}>{frmData["status"]}</label></td>                        
                         </tr>                    
                     </table>                        
                 </div>
