@@ -18,7 +18,8 @@ function Analysis(props) {
         }
         axios.post(route + "/analysis", "", {headers:header}).then((res) => {
             if("error" in res.data.msg) {
-                if(res.data.msg.error === "token is missing") {
+                console.log(res.data.msg.error);
+                if(res.data.msg.error === "token is missing" || res.data.msg.error === "invalid token") {
                     localStorage.clear();
                     window.location.reload();
                 }
