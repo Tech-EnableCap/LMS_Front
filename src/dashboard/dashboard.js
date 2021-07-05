@@ -55,6 +55,7 @@ function Dashboard(props) {
                     //console.log(res);
                     if(!("data" in res.data.msg)) {
                         alert (res.data.msg.error);
+                        console.log(res.data.msg.error);
                         setTbDt({});
                         props.isLoad(false);
                         return;
@@ -169,6 +170,34 @@ function Dashboard(props) {
     }
     //==================================    
 
+    const confirmHandle=(e)=>{
+        let file = e.target.files[0];
+        e.target.value = null;
+        if(file === undefined)
+        return;
+        let fl = file.name.split(".");
+        let ext = fl[fl.length - 1]
+        if(ext !== "xlsx" && ext !== "xls" && ext !== "csv") {
+        alert("Invalid file format " + ext);
+        return;
+        }
+        let f_name=fl[0].toLowerCase();
+        let ftype=''
+        if(f_name.includes("weekly")){
+            ftype="weekly";
+        }else if(f_name.includes("monthly")){
+            ftype="monthly";
+        }else{
+            alert("invalid file name, please follow the format");
+            return ;
+        }
+        //Encoding to base64.......
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+            upload("emi_"+ftype, reader.result);
+        };
+    }
     
     //Handle searchBar Input Changes....
     const lidCh = (e) => {
@@ -282,6 +311,7 @@ function Dashboard(props) {
                     //console.log(res);
                     if(!("data" in res.data.msg)) {
                         alert (res.data.msg.error);
+                        console.log(res.data.msg.error)
                         setTbDt({});
                         props.isLoad(false);
                         return;
@@ -457,6 +487,8 @@ function Dashboard(props) {
                     hndlViewMore={props.hndlViewMore}
                     disOnChange={disOnChange}
                     eqOnChange={eqOnChange}
+                    confirmHandle={confirmHandle}
+                    isLoad={props.isLoad}
                 />
             </div>
         </div>

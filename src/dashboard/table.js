@@ -12,7 +12,9 @@ function DtTable(props) {
         background:"#3468eb",
         color:"white",
         fontSize: "12px"
-    } 
+    }
+
+
     return (
         <div className="table" id="dashTable">
             <div className="tbHeader">
@@ -26,13 +28,22 @@ function DtTable(props) {
                     <RepUp 
                     icon="fa fa-upload"
                     wdLabl="DISB"
+                    type="upload"
                     onChange={props.disOnChange}
                     />
                     <RepUp 
                     icon="fa fa-upload"
                     wdLabl="EFX"
+                    type="upload"
                     onChange={props.eqOnChange}
-                />  
+                    />  
+                    <RepUp 
+                    icon="fa fa-upload"
+                    wdLabl="EMI"
+                    type="emi"
+                    isLoad={props.isLoad}
+                    onChange={props.confirmHandle}
+                    />
                 </div>
             </div>
             <div className={show}>
