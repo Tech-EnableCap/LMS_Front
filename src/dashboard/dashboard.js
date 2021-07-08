@@ -4,12 +4,14 @@ import DtTable from './table';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import {route} from '../route';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 let idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
+    const [totout,setTot] = useState(null);
     const [inputVal, setInputVal] = useState({
         lid:"",
         fname:"",
@@ -341,6 +343,46 @@ function Dashboard(props) {
                 });
         }
     }
+
+
+
+    const hndlOut = () => {
+        props.isLoad(true);
+        let srCr = {};
+        srCr["comp"] = inputVal.comp;
+
+        console.log(srCr);
+    
+        let url;
+        //if(props.dashName === "report_status")
+        url = route + "/view_report_out";
+        const header = {
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.post(url, srCr, {headers:header})
+            .then(res => {
+                //alert("OK");
+                //console.log(res);
+                if(!("data" in res.data.msg)) {
+                    alert (res.data.msg.error);
+                    console.log(res.data.msg.error)
+                    props.isLoad(false);
+                    return;
+                }
+                console.log(res);
+                 alert("total outstanding Rs. "+res.data.msg.data);
+
+                props.isLoad(false); 
+                                   
+            })
+            .catch(err => {
+                alert("Err");
+                console.log(err);
+                props.isLoad(false);
+            });
+        }
+
+
     //==================================
     const srClick = () => {
         idx = 0;
@@ -477,6 +519,7 @@ function Dashboard(props) {
                     compChange={compChange}
                     dname={props.dashName}
                     handleLoanStatus={loanStatusHandler}
+                    hndlOut={hndlOut}
                 />
                 <DtTable 
                     Data={tbDt}

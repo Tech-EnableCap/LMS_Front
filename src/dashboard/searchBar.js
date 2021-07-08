@@ -18,7 +18,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     }
 
     let btnStl = {
-        width:"75px",
+        width:"110px",
         height:"40px",
         borderRadius:"20px",
         display: "inline-block",
@@ -29,7 +29,9 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     let element_block=null;
     let search_block=null;
     let search_by_status=null;
+    let outblock=null;
     if(props.dname==="equifax"){
+        outblock=null;
         element_block=(
             <div style={{
                 display: "inline-block",
@@ -56,6 +58,16 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             </div>
         );
 
+        outblock=(
+            <div style={{
+                        display: "inline-block",
+                        textAlign: "left",
+                        marginRight: "3rem",
+                    }}>
+                        <button style={btnStl} onClick={props.hndlOut}>OUTSTANDING</button>
+                        </div>
+        );
+
     }else{
         search_block=(
             <div style={props.stDateChange ? style : {display: "none"}}>
@@ -75,6 +87,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             </div>
         );
         search_by_status=null;
+        outblock=null;
     }
     
     return (
@@ -118,6 +131,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                             <option value="Entitle">Entitle</option>                        
                         </select>
                         </div>
+                        {outblock}
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
                 </li>
