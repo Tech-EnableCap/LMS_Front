@@ -272,7 +272,7 @@ const convert_hex=(col_val)=>{
         cursor:"pointer",
         zIndex:"2"
       }} onClick={selectTheme}>
-      <label><i class="iconify" data-icon="fa-solid:palette" data-inline="false"></i> THEME</label></div>
+      <label> THEME</label></div>
     </div>
   );
 }
