@@ -103,7 +103,7 @@ function RepUpload(props) {
                  show={swal}
                   warning 
                   title="Reminder"
-                  style={{backgroundImage:"var(--grdBgTop)"}}
+                  style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`}}
                    customButtons={<React.Fragment>
                     <button onClick={confHandle} style={{margin:"20px",width: "120px",height:"40px"}}>Yes,Continue</button>
                     <button onClick={cancelHandle} style={{margin:"20px",width: "120px",height:"40px"}}>Cancel</button>

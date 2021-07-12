@@ -1,6 +1,6 @@
 :root {
-  --grdBgBtm: linear-gradient(to bottom, #1a1919, rgb(82, 20, 43));
-  --grdBgTop: linear-gradient(to top, #1a1919, rgb(126, 33, 68));
+  --grdBgBtm: linear-gradient(to bottom, #1a1919, rgb(82, 20, 43, 0));
+  --grdBgTop: linear-gradient(to top, #1a1919, rgb(126, 33, 68, 0));
 }
 
 html {
@@ -201,8 +201,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .sidebar .sdmnu .menuItems:hover {
-  background-color:rgb(102, 16, 66);
-  cursor: pointer;
+    background-color: #ffffff5c;
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 
@@ -219,6 +220,7 @@ body::-webkit-scrollbar-thumb {
   padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
+  transform: translateX(60px);
   /*margin-top: 20px;*/
   width: fit-content;
 }
@@ -284,8 +286,8 @@ table tbody td {
 }
 
 table tbody tr:nth-child(2n) td {
-  border-top: 1px solid rgba(238, 0, 79, 0.5);
-  border-bottom: 1px solid rgba(238, 0, 79, 0.5);
+  border-top: 1px solid rgb(0 0 0 / 98%);
+  border-bottom: 1px solid rgb(0 0 0 / 98%);
 }
 
 .table {

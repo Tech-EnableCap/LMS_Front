@@ -43,6 +43,7 @@ function DtTable(props) {
                     type="emi"
                     isLoad={props.isLoad}
                     onChange={props.confirmHandle}
+                    initcol={props.initcol}
                     />
                 </div>
             </div>

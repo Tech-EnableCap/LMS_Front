@@ -18,13 +18,13 @@ function MasterRepaySch(props) {
     (st === "new") && (sh=<NewPmt lid={props.lid} isLoad={props.isLoad} />);
     (st === "hist") && (sh=<Hist lid={props.lid} isLoad={props.isLoad} />);
     return (
-        <div className="master">
+        <div className="master" style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`}}>
             <h2><center>Loan Repayment Details</center></h2>
             <h4><center>Loan ID: {props.lid}</center></h4>
             <div className="canvas" id="can">
                 <div className="menu">
-                    <label onClick={hndlNew}><p>New Payment</p></label>
-                    <label onClick={hndlHist}><p>Payment History</p></label>                    
+                    <label style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`,border: `2px solid ${props.initcol}`}} onClick={hndlNew}><p>New Payment</p></label>
+                    <label style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`,border: `2px solid ${props.initcol}`}} onClick={hndlHist}><p>Payment History</p></label>                    
                 </div>  
                 {sh}
                 </div>

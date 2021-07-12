@@ -170,7 +170,7 @@ function Analysis(props) {
         }
     };
     return (
-        <div className="analysis">
+        <div className="analysis" style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`}}>
             {/*<SearchBar 
             stDateChange={stDateCh} 
             enDateChange={enDateCh} 

@@ -500,7 +500,7 @@ function Dashboard(props) {
     }, [tbDt]);
 
     return (
-        <div className="dashboard">
+        <div className="dashboard" style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`}}>
             {/*<div className="dashHeader">
                                      
             </div>*/}
@@ -532,6 +532,7 @@ function Dashboard(props) {
                     eqOnChange={eqOnChange}
                     confirmHandle={confirmHandle}
                     isLoad={props.isLoad}
+                    initcol={props.initcol}
                 />
             </div>
         </div>

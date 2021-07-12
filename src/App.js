@@ -6,7 +6,12 @@ import Dashboard from './dashboard/dashboard';
 import Analysis from './analysis';
 import MasterRepay from './masterRepay/masterRepay';
 import Login from './login/login';
+import {ChromePicker} from 'react-color';
+import SweetAlert from 'react-bootstrap-sweetalert';
+
 let lid,pg;
+let ele=null;
+let color_code="#52142b";
 function App() {  
   useEffect(() => {
     if(typeof(Storage) === "undefined") {
@@ -15,8 +20,18 @@ function App() {
     }
   }
   ,[]);
+
+  const ccd=JSON.parse(localStorage.getItem('col_code'));
+  if(ccd){
+    color_code=ccd.col_code;
+  }
+
   const [sdBarSt, setSd] = useState("login"); //change default value to "ana"
   const [hide, setHide] = useState(true);  
+  const [col,setCol]=useState(false);
+
+  const [initcol,setInitcol]=useState(color_code);
+
   const onClickBank = () => {
     setSd("bank");
   }
@@ -52,6 +67,49 @@ const hndlLogin = () => {
   setSd("ana");
 }
 
+const handleChangeComplete=(c)=>{
+  let get_col;
+  let r=c.rgb["r"];
+  let g=c.rgb["g"];
+  let b=c.rgb["b"];
+  let a="a" in c.rgb ? c.rgb["a"] : 0;
+  get_col="rgba("+r+","+g+","+b+","+a+")";
+  setInitcol(convert_hex(get_col));
+}
+
+const selectTheme=()=>{
+  setCol(true);
+}
+
+const cancelColor=()=>{
+  setCol(false);
+  setInitcol(color_code);
+}
+
+const closeColor=()=>{
+  setCol(false);
+  console.log(initcol);
+  localStorage.setItem(
+    'col_code',
+    JSON.stringify({col_code:initcol})
+  );
+}
+
+const convert_hex=(col_val)=>{
+  let alp,rgba,alpha,hex;
+  rgba=col_val.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i);
+  alpha=(rgba && rgba[4] || "").trim();
+  hex=rgba ? (rgba[1] | 1 << 8).toString(16).slice(1)+(rgba[2] | 1 << 8).toString(16).slice(1)+(rgba[3] | 1 << 8).toString(16).slice(1) : col_val;
+  if (alpha!=="") {
+    alp=alpha;
+  }else{
+    alp="01";
+  }
+  alp=((alp*255) | 1 << 8).toString(16).slice(1)
+  hex=hex+alp;
+  return "#"+hex;
+}
+
   const [cmp, setCmp] = useState();
   useEffect( () => {
     localStorage.curPage=sdBarSt;
@@ -70,12 +128,16 @@ const hndlLogin = () => {
               onClickEfx={onClickEfx}
               onClickMaster={onClickMaster}
               onClickStatus={onClickStatus}
+              initcol={initcol}
               />
+
               <Dashboard 
               dashName={sdBarSt}
               isLoad={isLoad}
               hndlViewMore={hndlViewMore}
+              initcol={initcol}
               />
+             
             </section>
           );
         else if(sdBarSt === "ana")
@@ -89,9 +151,11 @@ const hndlLogin = () => {
                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
                 onClickStatus={onClickStatus}
+                initcol={initcol}
               />
               <Analysis 
-              isLoad={isLoad}  
+              isLoad={isLoad}
+              initcol={initcol} 
               />
             </section>
           );
@@ -106,9 +170,11 @@ const hndlLogin = () => {
                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
                 onClickStatus={onClickStatus}
+                selectTheme={selectTheme}
+                initcol={initcol}
               />
             
-              <MasterRepay lid={lid} isLoad={isLoad}/>
+              <MasterRepay lid={lid} isLoad={isLoad} initcol={initcol}/>
             </section>
             );
         else if(sdBarSt === "login") {
@@ -120,18 +186,36 @@ const hndlLogin = () => {
         }
     }
     );
-  }, [sdBarSt]);
+  }, [sdBarSt,initcol]);
 
   const logout = () => {
     localStorage.clear();
     setSd("login");
   }
 
+  if(col){
+    ele=(
+      <SweetAlert
+       show={col}
+       title=<p style={{color:"white"}}> Change Theme </p>
+        style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${initcol}`}}
+         customButtons={<React.Fragment>
+          <button onClick={closeColor} style={{margin:"20px",width: "120px",height:"40px"}}>Change</button>
+          <button onClick={cancelColor} style={{margin:"20px",width: "120px",height:"40px"}}>Cancel</button>
+        </React.Fragment>}
+      ><div><center><ChromePicker color={initcol} onChange={handleChangeComplete}/></center></div>
+        </SweetAlert>
+    );
+  }else{
+    ele=null;
+  }
+
   return (
     <div className="App">
-      <Loader hide={hide}/>      
-      
+      <Loader hide={hide}/>
+      {ele}
       {cmp}
+        
       {((sdBarSt !== "login") && (<div onClick={logout} style={{
         position:"fixed",
         bottom:"0",
@@ -170,6 +254,25 @@ const hndlLogin = () => {
       }}>
         <label style={{cursor:"pointer"}}>{localStorage.email}</label>
       </div>
+      <div style={{
+        position:"fixed",
+        bottom:"0",
+        right:"6rem",
+        color:"white",
+        height:"2rem",
+        width:"auto",
+        padding:"0.0rem 0.5rem 0.0rem 0.5rem",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        margin:"0.5rem",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        borderRadius: "0.5rem",
+        fontSize:"0.8rem",
+        cursor:"pointer",
+        zIndex:"2"
+      }} onClick={selectTheme}>
+      <label><i class="iconify" data-icon="fa-solid:palette" data-inline="false"></i> THEME</label></div>
     </div>
   );
 }
