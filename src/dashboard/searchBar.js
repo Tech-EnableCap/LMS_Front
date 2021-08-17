@@ -1,11 +1,15 @@
+import Select from 'react-select';
+
+
 function SearchBar(props) { //Some of the styling elements are in the css...
+
     let style={
         borderRight:"2px solid red",
         borderLeft:"2px solid red",
         borderTop:"2px solid red",
         borderRadius:"5px",        
         display:"inline-block",
-        margin: "3px"
+        margin: "3px",
     };
 
     let srStl = {
@@ -53,8 +57,19 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     if(props.dname==="report_status"){
         search_block=null;
         search_by_status=(
-             <div style={props.handleLoanStatus ? style : {display: "none"}}>
-                <li><label>Loan Status</label><br/> <input type="text" id="srLOAN" value={props.inputVal.loan_status} onChange={props.handleLoanStatus} /></li>
+             <div style={props.showHandle ? style : {display: "none"}}>
+             <label>Loan Status</label>
+            <Select isMulti options={props.options} onChange={props.showHandle} theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+              ...theme.colors,
+                neutral0:'black',
+                text: 'orangered',
+                primary25: '#d4cdd0',
+                primary: 'black',
+              },
+            })}/>
             </div>
         );
 

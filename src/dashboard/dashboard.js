@@ -9,6 +9,47 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 let idx=0;
 let dtLen, totPage;
 function Dashboard(props) {
+
+    var [getVal,setGet]=useState(null);
+
+    const options=[
+    { 
+        value:'ontime,ongoing',
+        label:'Ontime and Ongoing' 
+    },
+    { 
+        value:'overdue,ongoing',
+        label:'Overdue and Ongoing' 
+    },
+    {
+        value:'advance,ongoing',
+        label:'Advance and Ongoing' 
+    },
+    {
+        value:'emi_closed,payment_received',
+        label:'Emi End, Payment Done'
+    },
+    {
+        value:'emi_closed,not_paid',
+        label:'Emi End, Not Paid'
+    },
+    {
+        value:'emi_closed_with_advance',
+        label:'Emi Closed with Advance'
+    },
+    {
+        value:'overdue,halted',
+        label:'Overdue and Halted'
+    },
+    {
+        value:'notstarted',
+        label:'Emi not Started'
+    },
+    {
+        value:'all',
+        label:'All'
+    }
+]
     const [dName, setDName] = useState();
     const [tbDt, setTbDt] = useState({});
     const [totout,setTot] = useState(null);
@@ -20,8 +61,7 @@ function Dashboard(props) {
         enDate:"",
         comp:"Enablecap",
         dtCat:"first_inst_date",
-        status:"ongoing",
-        loan_status:""
+        status:"ongoing"
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -89,6 +129,11 @@ function Dashboard(props) {
     }, [props.dashName]);
 
 
+    var showHandle=(e)=>{
+        setGet(Array.isArray(e) ? e.map(k=>k.value) : []);
+    }
+
+
     //Upload file...................
     const upload = (key, fl) => {
         props.isLoad(true);
@@ -108,6 +153,7 @@ function Dashboard(props) {
     
         //console.log(frmData);
         axios.post(route, frmData, config).then((res) => {
+            console.log(res);
             if("error" in res.data.msg) {
                 alert("Something went wrong.");
                 console.log(res.data.msg.error);
@@ -230,9 +276,9 @@ function Dashboard(props) {
         setInputVal({...inputVal, status:e.target.value});
     }
 
-    const loanStatusHandler = (e) => {
-        setInputVal({...inputVal, loan_status:e.target.value});
-    }
+    //const loanStatusHandler = (e) => {
+        //setInputVal({...inputVal, loan_status:e.target.value});
+    //}
     
     const hndlReset = () => setInputVal({
         ...inputVal,
@@ -241,7 +287,6 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
-        loan_status:"",
         dtCat:"first_inst_date"
     })
 
@@ -270,8 +315,8 @@ function Dashboard(props) {
             srCr["endDate"] = inputVal.enDate;
             srCr["cat"] = inputVal.dtCat;
         }
-        else if(inputVal.loan_status){
-            srCr["loan_status"] = inputVal.loan_status;
+        else if(getVal){
+            srCr["loan_status"] = getVal;
         }
         else{
             alert("Invalid search criteria.");
@@ -283,7 +328,7 @@ function Dashboard(props) {
             srCr["status"] = inputVal.status;
         }
         if(props.dashName === "report_status"){
-            srCr["loan_status"] = inputVal.loan_status
+            srCr["loan_status"] = getVal;
         }
 
         console.log(srCr);
@@ -427,8 +472,8 @@ function Dashboard(props) {
             crit["stDate"] = inputVal.stDate;
             crit["endDate"] = inputVal.enDate;
             crit["cat"] = inputVal.dtCat;
-        }else if(inputVal.loan_status){
-            crit["loan_status"] = inputVal.loan_status;
+        }else if(getVal){
+            crit["loan_status"] = getVal;
         }
         crit["comp"] = inputVal.comp;
         if(props.dashName === "dash") 
@@ -518,8 +563,10 @@ function Dashboard(props) {
                     hndlReset = {hndlReset}
                     compChange={compChange}
                     dname={props.dashName}
-                    handleLoanStatus={loanStatusHandler}
+                    //handleLoanStatus={loanStatusHandler}
                     hndlOut={hndlOut}
+                    options={options}
+                    showHandle={showHandle}
                 />
                 <DtTable 
                     Data={tbDt}

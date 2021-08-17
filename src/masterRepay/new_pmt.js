@@ -59,11 +59,11 @@ function NewPmt(props) {
     
     const hndlSub = () => {
         props.isLoad(true);
-        if(p_amt > parseInt(frmData["out"]) || !("out" in frmData)) {
+        /*if(p_amt > parseInt(frmData["out"]) || !("out" in frmData)) {
             alert("Payment amount should not be greater than outstanding amount.");
             props.isLoad(false);
             return;
-        }
+        }*/
 
         if(p_amt <= 0) {
             alert("Payment amount should be greater than 0.");

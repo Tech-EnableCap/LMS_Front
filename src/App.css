@@ -333,3 +333,15 @@ table tbody tr:nth-child(2n) td {
   min-height: 100vh;
   background-image: var(--grdBgBtm);
 }
+
+.css-2613qy-menu {
+  background: black;
+}
+
+.css-2b097c-container{
+  min-width: 200px;
+}
+
+.css-1pahdxg-control{
+  cursor: pointer;
+}
