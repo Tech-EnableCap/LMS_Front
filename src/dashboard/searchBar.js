@@ -34,6 +34,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     let search_block=null;
     let search_by_status=null;
     let outblock=null;
+    let dueblock=null;
     if(props.dname==="equifax"){
         outblock=null;
         element_block=(
@@ -55,7 +56,12 @@ function SearchBar(props) { //Some of the styling elements are in the css...
         );
     }
     if(props.dname==="report_status"){
-        search_block=null;
+        search_block=(
+            <div style={props.stDateChange ? style : {display: "none"}}>
+                <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
+                <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
+            </div>
+        );
         search_by_status=(
              <div style={props.showHandle ? style : {display: "none"}}>
              <label>Loan Status</label>
@@ -77,11 +83,21 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             <div style={{
                         display: "inline-block",
                         textAlign: "left",
-                        marginRight: "3rem",
                     }}>
                         <button style={btnStl} onClick={props.hndlOut}>OUTSTANDING</button>
                         </div>
         );
+
+         dueblock=(
+            <div style={{
+                        display: "inline-block",
+                        textAlign: "left",
+                        marginRight: "3rem",
+                    }}>
+                        <button style={btnStl} onClick={props.hndlDue}>View Due</button>
+                        </div>
+        );
+
 
     }else{
         search_block=(
@@ -118,9 +134,10 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                     <li><label>Last Name</label><br/> <input type="text" id="lname" value={props.inputVal.lname} onChange={props.lnameChange} /></li>
                 </div>
 
+                {search_block}
+
                 {search_by_status}
 
-                {search_block}
 
                 <br/>
                 <li style={{
@@ -147,6 +164,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                         </select>
                         </div>
                         {outblock}
+                         {dueblock}
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
                 </li>

@@ -390,6 +390,72 @@ function Dashboard(props) {
     }
 
 
+    const hndlDue=()=>{
+        let url = route + "/view_due";
+        props.isLoad(true);
+        let srCr = {};
+        let canSend = true;
+
+        if(inputVal.lid) {
+            //alert("lid");
+            srCr["lid"] = inputVal.lid;
+        }
+        else if(inputVal.fname || inputVal.lname) {
+            //alert("name");
+            srCr["fname"] = inputVal.fname;
+            srCr["lname"] = inputVal.lname;
+        }
+        else if(inputVal.stDate && inputVal.enDate) {
+            //alert("date");
+            srCr["stDate"] = inputVal.stDate;
+            srCr["endDate"] = inputVal.enDate;
+        }
+        else if(!inputVal.stDate && inputVal.enDate){
+            srCr["endDate"] = inputVal.enDate;
+        }
+        else if(!inputVal.stDate && !inputVal.enDate){
+            
+        }
+        else{
+            alert("You must specify end date");
+            props.isLoad(false);
+            canSend = false;
+        }
+        srCr["comp"] = inputVal.comp;
+        console.log(srCr);
+
+         if(canSend){
+
+            const header = {
+                Authorization: "Bearer " + localStorage.enalmsjwttkn
+            }
+
+            axios.post(url, srCr, {headers:header})
+                .then(res => {
+                    //alert("OK");
+                    //console.log(res);
+                    if(!("data" in res.data.msg)) {
+                        alert (res.data.msg.error);
+                        console.log(res.data.msg.error)
+                        props.isLoad(false);
+                        return;
+                    }
+                    console.log(res);
+                     alert("total Due Rs. "+res.data.msg.data);
+
+                    props.isLoad(false); 
+                                       
+                })
+                .catch(err => {
+                    alert("Err");
+                    console.log(err);
+                    props.isLoad(false);
+                });
+        }
+    
+    }
+
+
 
     const hndlOut = () => {
         props.isLoad(true);
@@ -564,6 +630,7 @@ function Dashboard(props) {
                     compChange={compChange}
                     dname={props.dashName}
                     //handleLoanStatus={loanStatusHandler}
+                    hndlDue={hndlDue}
                     hndlOut={hndlOut}
                     options={options}
                     showHandle={showHandle}
