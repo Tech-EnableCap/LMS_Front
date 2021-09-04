@@ -53,6 +53,9 @@ function App() {
   const onClickStatus = () => {
     setSd("report_status")
   }
+  const onClickRepayTrack = () => {
+    setSd("repay_tracker")
+  }
   const isLoad = (e) => {
     setHide(!e);
   }
@@ -117,7 +120,7 @@ const convert_hex=(col_val)=>{
       setSd("ana");
     setCmp(
       () => {
-        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master" || sdBarSt === "report_status") 
+        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master" || sdBarSt === "report_status" || sdBarSt==="repay_tracker") 
           return (
             <section>
               <Sidebar
@@ -128,6 +131,7 @@ const convert_hex=(col_val)=>{
               onClickEfx={onClickEfx}
               onClickMaster={onClickMaster}
               onClickStatus={onClickStatus}
+              onClickRepayTrack={onClickRepayTrack}
               initcol={initcol}
               />
 
@@ -151,6 +155,7 @@ const convert_hex=(col_val)=>{
                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
                 onClickStatus={onClickStatus}
+                onClickRepayTrack={onClickRepayTrack}
                 initcol={initcol}
               />
               <Analysis 

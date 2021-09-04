@@ -54,8 +54,26 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 </select>
             </div>
         );
+    }else if(props.dname==="repay_tracker"){
+        search_by_status=null;
+       search_block=(
+            <div style={props.stDateChange ? style : {display: "none"}}>
+                <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
+                <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
+            </div>
+        );
+       dueblock=(
+            <div style={{
+                display: "inline-block",
+                textAlign: "left",
+                marginRight: "3rem",
+            }}>
+                <button style={btnStl} onClick={props.hndlDue}>View Due</button>
+                </div>
+        );
+
     }
-    if(props.dname==="report_status"){
+    else if(props.dname==="report_status"){
         search_block=(
             <div style={props.stDateChange ? style : {display: "none"}}>
                 <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
@@ -85,16 +103,6 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                         textAlign: "left",
                     }}>
                         <button style={btnStl} onClick={props.hndlOut}>OUTSTANDING</button>
-                        </div>
-        );
-
-         dueblock=(
-            <div style={{
-                        display: "inline-block",
-                        textAlign: "left",
-                        marginRight: "3rem",
-                    }}>
-                        <button style={btnStl} onClick={props.hndlDue}>View Due</button>
                         </div>
         );
 

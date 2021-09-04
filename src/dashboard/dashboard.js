@@ -76,7 +76,10 @@ function Dashboard(props) {
             setDName("Generate Equifax Report");
         }else if(props.dashName === "report_status"){
             setDName("View loan status")
-        }else if(props.dashName === "master") {
+        }else if(props.dashName==="repay_tracker"){
+            setDName("Repayment Tracker")
+        }
+        else if(props.dashName === "master") {
             props.isLoad(true);
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
@@ -349,6 +352,8 @@ function Dashboard(props) {
                 url = route + "/genefx?idx=" + idx;
             else if(props.dashName === "report_status")
                 url = route + "/view_report?idx=" + idx;
+            else if(props.dashName === "repay_tracker")
+                url = route + "/repayment_tracker?idx=" + idx;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
