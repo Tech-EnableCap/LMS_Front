@@ -37,6 +37,25 @@ function SearchBar(props) { //Some of the styling elements are in the css...
     let dueblock=null;
     if(props.dname==="equifax"){
         outblock=null;
+        dueblock=null;
+        search_by_status=null;
+        search_block=(
+            <div style={props.stDateChange ? style : {display: "none"}}>
+                <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
+                <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
+                <li>
+                    <label>Date Category</label><br/> 
+                    <select name="cat" id="dtCat" value={props.inputVal.dtCat} onChange={props.dtCatChange} >
+                        <option value="first_inst_date">EMI Date</option>
+                        <option value="sacntion_date">Sanction Date</option>
+                        <option value="loan_app_date">Loan Application Date</option>
+                        <option value="disburse_date">Disburse Date</option>
+                        <option value="final_approve_date">Final Approval Date</option>
+                        <option value="joining_date">Joining Date</option>
+                    </select>
+                </li>
+            </div>
+        );
         element_block=(
             <div style={{
                 display: "inline-block",
@@ -74,12 +93,13 @@ function SearchBar(props) { //Some of the styling elements are in the css...
 
     }
     else if(props.dname==="report_status"){
-        search_block=(
+        /*search_block=(
             <div style={props.stDateChange ? style : {display: "none"}}>
                 <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
                 <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
             </div>
-        );
+        );*/
+        search_block=null;
         search_by_status=(
              <div style={props.showHandle ? style : {display: "none"}}>
              <label>Loan Status</label>
@@ -106,6 +126,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                         </div>
         );
 
+        dueblock=null;
 
     }else{
         search_block=(
@@ -127,6 +148,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
         );
         search_by_status=null;
         outblock=null;
+        dueblock=null;
     }
     
     return (
