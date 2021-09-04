@@ -175,6 +175,7 @@ const convert_hex=(col_val)=>{
                 onClickEfx={onClickEfx}
                 onClickMaster={onClickMaster}
                 onClickStatus={onClickStatus}
+                onClickRepayTrack={onClickRepayTrack}
                 selectTheme={selectTheme}
                 initcol={initcol}
               />
