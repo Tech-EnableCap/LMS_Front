@@ -79,9 +79,16 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             <div style={props.stDateChange ? style : {display: "none"}}>
                 <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
                 <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
+                <li>
+                    <label>Category</label><br/> 
+                    <select name="repay_type" id="repay_type" value={props.inputVal.repay_type} onChange={props.repayHandler} >
+                        <option value="repay_tracker">Repay Tracker</option>
+                        <option value="analysis">Day by day due</option>
+                    </select>
+                </li>
             </div>
         );
-       dueblock=(
+       /*dueblock=(
             <div style={{
                 display: "inline-block",
                 textAlign: "left",
@@ -89,7 +96,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             }}>
                 <button style={btnStl} onClick={props.hndlDue}>View Due</button>
                 </div>
-        );
+        );*/
 
     }
     else if(props.dname==="report_status"){

@@ -61,7 +61,8 @@ function Dashboard(props) {
         enDate:"",
         comp:"Enablecap",
         dtCat:"first_inst_date",
-        status:"ongoing"
+        status:"ongoing",
+        repay_type:"repay_tracker"
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -279,6 +280,10 @@ function Dashboard(props) {
         setInputVal({...inputVal, status:e.target.value});
     }
 
+    const repayHandler = (e) => {
+        setInputVal({...inputVal, repay_type:e.target.value});
+    }
+
     //const loanStatusHandler = (e) => {
         //setInputVal({...inputVal, loan_status:e.target.value});
     //}
@@ -317,6 +322,7 @@ function Dashboard(props) {
             srCr["stDate"] = inputVal.stDate;
             srCr["endDate"] = inputVal.enDate;
             srCr["cat"] = inputVal.dtCat;
+            srCr["repay_type"]=inputVal.repay_type
         }
         else if(getVal){
             srCr["loan_status"] = getVal;
@@ -333,6 +339,7 @@ function Dashboard(props) {
         if(props.dashName === "report_status"){
             srCr["loan_status"] = getVal;
         }
+
 
         console.log(srCr);
 
@@ -543,6 +550,7 @@ function Dashboard(props) {
             crit["stDate"] = inputVal.stDate;
             crit["endDate"] = inputVal.enDate;
             crit["cat"] = inputVal.dtCat;
+            crit["repay_type"]=inputVal.repay_type;
         }else if(getVal){
             crit["loan_status"] = getVal;
         }
@@ -559,10 +567,12 @@ function Dashboard(props) {
             url = route + "/genefx?idx=-2";
         else if(props.dashName === "report_status")
             url = route + "/view_report?idx=-2";
+        else if(props.dashName==="repay_tracker")
+            url= route + "/repayment_tracker?idx=-2";
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-
+        console.log(crit)
         axios.post(url, crit, {headers:header})
         .then(res => {
             
@@ -639,6 +649,8 @@ function Dashboard(props) {
                     hndlOut={hndlOut}
                     options={options}
                     showHandle={showHandle}
+                    repayHandler={repayHandler}
+
                 />
                 <DtTable 
                     Data={tbDt}
