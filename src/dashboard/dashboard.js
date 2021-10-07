@@ -468,6 +468,28 @@ function Dashboard(props) {
     }
 
 
+    const cronJob=()=>{
+        let url = route + "/cronjob";
+        props.isLoad(true);
+        const header={
+            Authorization: "Bearer " + localStorage.enalmsjwttkn
+        }
+        axios.get(url,{headers:header}).then(res=>{
+            props.isLoad(false);
+            console.log(res);
+            if("error" in res.data.msg){
+                alert(res.data.msg.error);
+            }else{
+                alert(res.data.msg.data);
+            }
+        }).catch(err=>{
+            alert("Err");
+            console.log(err);
+            props.isLoad(false);
+        })
+    }
+
+
 
     const hndlOut = () => {
         props.isLoad(true);
@@ -645,7 +667,7 @@ function Dashboard(props) {
                     compChange={compChange}
                     dname={props.dashName}
                     //handleLoanStatus={loanStatusHandler}
-                    hndlDue={hndlDue}
+                    cronJob={cronJob}
                     hndlOut={hndlOut}
                     options={options}
                     showHandle={showHandle}

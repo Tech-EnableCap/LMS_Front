@@ -1,0 +1,12 @@
+2021-10-04T20:11:01.356Z START RequestId: 304b8e2c-a41c-4cd8-a86f-967dd5a94936 Version: $LATEST
+
+2021-10-04T20:11:01.357Z [Event] {'state': {'desired': {'welcome': 'AtO', 'message': ['A6', 'A5', 'Bac_off.bin', 'Bac_24.bin', 'C0@', 'C1!'], 'msg': 'hello', 'Box': ['228', 'S', '1']}, 'reported': {'welcome': 'Connect 1', 'message': ['A6', '', 'Bac_off.bin', 'nu', 'C0!', 'C1@'], 'color': 'red', 'power': 'on', 'Box': ['228', 'S', '1']}}, 'metadata': {'desired': {'welcome': {'timestamp': 1632979252}, 'message': [{'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}], 'msg': {'timestamp': 1632979252}, 'Box': [{'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}]}, 'reported': {'welcome': {'timestamp': 1632979252}, 'message': [{'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}], 'color': {'timestamp': 1632979252}, 'power': {'timestamp': 1632979252}, 'Box': [{'timestamp': 1632979252}, {'timestamp': 1632979252}, {'timestamp': 1632979252}]}}, 'version': 4232, 'timestamp': 1632979252} 
+
+2021-10-04T20:11:01.565Z Desired:  ['A6', 'A5', 'Bac_off.bin', 'Bac_20_swing.bin', 'C0@', 'C1@']
+
+2021-10-04T20:11:01.565Z Reported:  ['A5', 'A5', 'Bac_off.bin', 'Bac_20_swing.bin', 'C0@', 'C1@']
+
+2021-10-04T20:11:01.568Z END RequestId: 304b8e2c-a41c-4cd8-a86f-967dd5a94936
+
+2021-10-04T20:11:01.568Z REPORT RequestId: 304b8e2c-a41c-4cd8-a86f-967dd5a94936	Duration: 209.60 ms	Billed Duration: 210 ms	Memory Size: 128 MB	Max Memory Used: 61 MB	Init Duration: 304.93 ms	
+

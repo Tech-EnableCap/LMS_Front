@@ -128,6 +128,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             <div style={{
                         display: "inline-block",
                         textAlign: "left",
+                        marginRight: "2rem",
                     }}>
                         <button style={btnStl} onClick={props.hndlOut}>OUTSTANDING</button>
                         </div>
@@ -181,6 +182,16 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 display:"block",
                 textAlign: "right"
                 }}>
+                {props.dname==="report_status" && <div style={{
+                            display: "inline-block",
+                            textAlign: "left",
+                            marginRight: "2rem",
+                        }}>
+                            <button style={btnStl} onClick={props.cronJob}>UPDATE</button>
+                            </div>}
+
+                    {outblock}
+
                     {element_block}
 
                    
@@ -200,7 +211,6 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                             <option value="Entitle">Entitle</option>                        
                         </select>
                         </div>
-                        {outblock}
                          {dueblock}
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>
