@@ -62,7 +62,8 @@ function Dashboard(props) {
         comp:"Enablecap",
         dtCat:"first_inst_date",
         status:"ongoing",
-        repay_type:"repay_tracker"
+        repay_type:"repay_tracker",
+        job_type:"login",
     })
     useEffect(() => {
         if(props.dashName === "dash") {
@@ -79,6 +80,8 @@ function Dashboard(props) {
             setDName("View loan status")
         }else if(props.dashName==="repay_tracker"){
             setDName("Repayment Tracker")
+        }else if(props.dashName==="user_log"){
+            setDName("Log Table")
         }
         else if(props.dashName === "master") {
             props.isLoad(true);
@@ -91,6 +94,7 @@ function Dashboard(props) {
             srCr["stDate"] = yyyy + "-" + mm + "-" + dd;
             srCr["endDate"] = yyyy + "-" + mm + "-" + dd;
             srCr["comp"] = inputVal.comp;
+            srCr["email"]=props.email;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
@@ -154,7 +158,8 @@ function Dashboard(props) {
 
         let frmData = {};
         frmData[key] = fl;
-    
+        frmData["email"]=props.email;
+        console.log(frmData);
         //console.log(frmData);
         axios.post(route, frmData, config).then((res) => {
             console.log(res);
@@ -284,6 +289,10 @@ function Dashboard(props) {
         setInputVal({...inputVal, repay_type:e.target.value});
     }
 
+    const jobTypeChng=(e)=>{
+        setInputVal({...inputVal,job_type:e.target.value});
+    }
+
     //const loanStatusHandler = (e) => {
         //setInputVal({...inputVal, loan_status:e.target.value});
     //}
@@ -295,7 +304,8 @@ function Dashboard(props) {
         lname:"",
         stDate:"",
         enDate:"",
-        dtCat:"first_inst_date"
+        dtCat:"first_inst_date",
+        job_type:"login"
     })
 
     const compChange = (e) => {
@@ -308,37 +318,64 @@ function Dashboard(props) {
         props.isLoad(true);
         let srCr = {};
         let canSend = true;
-        if(inputVal.lid) {
-            //alert("lid");
-            srCr["lid"] = inputVal.lid;
-        }
-        else if(inputVal.fname || inputVal.lname) {
-            //alert("name");
-            srCr["fname"] = inputVal.fname;
-            srCr["lname"] = inputVal.lname;
-        }
-        else if(inputVal.stDate && inputVal.enDate) {
-            //alert("date");
-            srCr["stDate"] = inputVal.stDate;
-            srCr["endDate"] = inputVal.enDate;
-            srCr["cat"] = inputVal.dtCat;
-            srCr["repay_type"]=inputVal.repay_type
-        }
-        else if(getVal){
-            srCr["loan_status"] = getVal;
-        }
-        else{
-            alert("Invalid search criteria.");
-            props.isLoad(false);
-            canSend = false;
+
+        if(props.dashName==="user_log"){
+            if(inputVal.lid){
+                if(!inputVal.stDate && !inputVal.enDate){
+                    alert("Please specify range of date.");
+                    props.isLoad(false);
+                    canSend = false;
+                }else{
+                    srCr["lid"]=inputVal.lid;
+                    srCr["stDate"] = inputVal.stDate;
+                    srCr["endDate"] = inputVal.enDate;
+                    srCr["job"]=inputVal.job_type;
+                }
+            }else if(inputVal.stDate && inputVal.enDate){
+                srCr["stDate"] = inputVal.stDate;
+                srCr["endDate"] = inputVal.enDate;
+                srCr["job"]=inputVal.job_type;
+            }else{
+               alert("Invalid search criteria.");
+               props.isLoad(false);
+               canSend = false; 
+            }
+
+        }else{
+            if(inputVal.lid) {
+                //alert("lid");
+                srCr["lid"] = inputVal.lid;
+            }
+            else if(inputVal.fname || inputVal.lname) {
+                //alert("name");
+                srCr["fname"] = inputVal.fname;
+                srCr["lname"] = inputVal.lname;
+            }
+            else if(inputVal.stDate && inputVal.enDate) {
+                //alert("date");
+                srCr["stDate"] = inputVal.stDate;
+                srCr["endDate"] = inputVal.enDate;
+                srCr["cat"] = inputVal.dtCat;
+                srCr["repay_type"]=inputVal.repay_type
+            }
+            else if(getVal){
+                srCr["loan_status"] = getVal;
+            }
+            else{
+                alert("Invalid search criteria.");
+                props.isLoad(false);
+                canSend = false;
+            }
         }
         srCr["comp"] = inputVal.comp;
+        srCr["email"]=props.email
         if(props.dashName === "equifax"){
             srCr["status"] = inputVal.status;
         }
         if(props.dashName === "report_status"){
             srCr["loan_status"] = getVal;
         }
+
 
 
         console.log(srCr);
@@ -361,6 +398,8 @@ function Dashboard(props) {
                 url = route + "/view_report?idx=" + idx;
             else if(props.dashName === "repay_tracker")
                 url = route + "/repayment_tracker?idx=" + idx;
+            else if(props.dashName==="user_log")
+                url=route+"/user_log?idx="+idx;
             const header = {
                 Authorization: "Bearer " + localStorage.enalmsjwttkn
             }
@@ -474,7 +513,7 @@ function Dashboard(props) {
         const header={
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.get(url,{headers:header}).then(res=>{
+        axios.post(url,{"email":props.email},{headers:header}).then(res=>{
             props.isLoad(false);
             console.log(res);
             if("error" in res.data.msg){
@@ -558,25 +597,40 @@ function Dashboard(props) {
         //let srCr = [];
         let crit = {};
         let url;
-        if(inputVal.lid) {
-            //alert("lid");
-            crit["lid"] = inputVal.lid;
-        }
-        else if(inputVal.fname || inputVal.lname) {
-            //alert("name");
-            crit["fname"] = inputVal.fname;
-            crit["lname"] = inputVal.lname;
-        }
-        else if(inputVal.stDate && inputVal.enDate) {
-            //alert("date");
-            crit["stDate"] = inputVal.stDate;
-            crit["endDate"] = inputVal.enDate;
-            crit["cat"] = inputVal.dtCat;
-            crit["repay_type"]=inputVal.repay_type;
-        }else if(getVal){
-            crit["loan_status"] = getVal;
+        if(props.dashName==="user_log"){
+            if(inputVal.lid){
+                crit["lid"]=inputVal.lid;
+                crit["stDate"] = inputVal.stDate;
+                crit["endDate"] = inputVal.enDate;
+                crit["job"]=inputVal.job_type;
+            }else if(inputVal.stDate && inputVal.enDate){
+                crit["stDate"] = inputVal.stDate;
+                crit["endDate"] = inputVal.enDate;
+                crit["job"]=inputVal.job_type;
+            }
+
+        }else{
+            if(inputVal.lid) {
+                //alert("lid");
+                crit["lid"] = inputVal.lid;
+            }
+            else if(inputVal.fname || inputVal.lname) {
+                //alert("name");
+                crit["fname"] = inputVal.fname;
+                crit["lname"] = inputVal.lname;
+            }
+            else if(inputVal.stDate && inputVal.enDate) {
+                //alert("date");
+                crit["stDate"] = inputVal.stDate;
+                crit["endDate"] = inputVal.enDate;
+                crit["cat"] = inputVal.dtCat;
+                crit["repay_type"]=inputVal.repay_type;
+            }else if(getVal){
+                crit["loan_status"] = getVal;
+            }
         }
         crit["comp"] = inputVal.comp;
+        crit["email"]=props.email;
         if(props.dashName === "dash") 
             url = route + "/viewupload?idx=-2";
         else if(props.dashName === "dis") 
@@ -591,6 +645,8 @@ function Dashboard(props) {
             url = route + "/view_report?idx=-2";
         else if(props.dashName==="repay_tracker")
             url= route + "/repayment_tracker?idx=-2";
+        else if(props.dashName==="user_log")
+            url= route + "/user_log?idx=-2";
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
@@ -672,6 +728,7 @@ function Dashboard(props) {
                     options={options}
                     showHandle={showHandle}
                     repayHandler={repayHandler}
+                    jobTypeChng={jobTypeChng}
 
                 />
                 <DtTable 
@@ -686,6 +743,7 @@ function Dashboard(props) {
                     confirmHandle={confirmHandle}
                     isLoad={props.isLoad}
                     initcol={props.initcol}
+                    dname={props.dashName}
                 />
             </div>
         </div>

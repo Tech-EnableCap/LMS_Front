@@ -15,8 +15,8 @@ function MasterRepaySch(props) {
     }
 
     let sh;
-    (st === "new") && (sh=<NewPmt lid={props.lid} isLoad={props.isLoad} />);
-    (st === "hist") && (sh=<Hist lid={props.lid} isLoad={props.isLoad} />);
+    (st === "new") && (sh=<NewPmt lid={props.lid} isLoad={props.isLoad} email={props.email}/>);
+    (st === "hist") && (sh=<Hist lid={props.lid} isLoad={props.isLoad} email={props.email}/>);
     return (
         <div className="master" style={{backgroundImage:`linear-gradient(rgb(26, 25, 25), ${props.initcol}`}}>
             <h2><center>Loan Repayment Details</center></h2>

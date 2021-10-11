@@ -75,7 +75,8 @@ function NewPmt(props) {
             "lid":props.lid,            
             "pmt":p_amt,
             "date":crDate,
-            "rem":rem
+            "rem":rem,
+            "email":props.email
         }
         //console.log(config);
         const header = {

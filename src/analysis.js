@@ -7,6 +7,7 @@ import {route} from './route';
 let startDate, endDate, dateCat="first_inst_date";
 
 function Analysis(props) {
+    let body={};
     const [anData, setAnData] = useState({});
     const [dataN, setDataN] = useState({});
     const [dataV, setDataV] = useState({});
@@ -16,7 +17,8 @@ function Analysis(props) {
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn
         }
-        axios.post(route + "/analysis", "", {headers:header}).then((res) => {
+        body["email"]=props.email;
+        axios.post(route + "/analysis", body, {headers:header}).then((res) => {
             if("error" in res.data.msg) {
                 console.log(res.data.msg.error);
                 if(res.data.msg.error === "token is missing" || res.data.msg.error === "invalid token") {

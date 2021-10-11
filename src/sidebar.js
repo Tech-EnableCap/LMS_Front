@@ -13,6 +13,7 @@ function SideBar(props) {
                 <div className="menuItems" onClick={props.onClickMaster}><p><i className="fa fa-clock-o"></i> <label className="sdLabel">Master Repayment Schedule</label></p></div>
                 <div className="menuItems" onClick={props.onClickStatus}><p><i className="fa fa-bar-chart"></i> <label className="sdLabel">Loan Performance Report</label></p></div>
                 <div className="menuItems" onClick={props.onClickRepayTrack}><p><i className="fa fa-calendar"></i> <label className="sdLabel">Repay Tracker</label></p></div>
+                <div className="menuItems" onClick={props.onClickLog}><p><i className="fa fa-history"></i> <label className="sdLabel">User Log</label></p></div>
             </div>
         </div>
     );

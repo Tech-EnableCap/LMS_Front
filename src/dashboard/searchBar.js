@@ -142,14 +142,40 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                 <li><label>Start Date</label><br/> <input type="date" id="stDate" value={props.inputVal.stDate} onChange={props.stDateChange}  /></li>
                 <li><label>End Date</label><br/> <input type="date" id="enDate" value={props.inputVal.enDate} onChange={props.enDateChange}  /></li>
                 <li>
-                    <label>Date Category</label><br/> 
-                    <select name="cat" id="dtCat" value={props.inputVal.dtCat} onChange={props.dtCatChange} >
-                        <option value="first_inst_date">EMI Date</option>
+                    <label>{props.dname==="user_log" ? "Job Type" : "Date Category"}</label><br/> 
+                    <select name="cat" id="dtCat" value={props.dname==="user_log" ? props.inputVal.job_type : props.inputVal.dtCat} onChange={props.dname==="user_log" ? props.jobTypeChng : props.dtCatChange} >
+                        {props.dname==="user_log" ? 
+                        (<><option value="login">Login</option>
+                        <option value="upload">Upload Loan Details</option>
+                        <option value="view_upload">Search Upload File</option>
+                        <option value="payment">Make Payment</option>
+                        <option value="rt_details">View Individual Payment Track</option>
+                        <option value="eqfx">Generate Equifax</option>
+                        <option value="upload_reco">Upload Reconciliation File</option>
+                        <option value="view_analysis">View Analysis Data</option>
+                        <option value="disbursal_mis">Generate Disbursal MIS File</option>
+                        <option value="bank_upload">Generate Bank Upload File</option>
+                        <option value="master_repay_search">Search Master Repay</option>
+                        <option value="loan_report_search">Search Loan Report</option>
+                        <option value="cron">Trigger Status Update</option>
+                        <option value="rt_search">Search Repayment Tracker</option>
+                        <option value="dbd_due_search">Search Day By Day Due</option>
+                        <option value="download_upload">Download Upload File</option>
+                        <option value="download_eqfx">Download Equifax File</option>
+                        <option value="download_dmis">Download Disbursal MIS File</option>
+                        <option value="download_bank_up">Download Bank Upload File</option>
+                        <option value="download_mr">Download Master Repay File</option>
+                        <option value="download_lp">Download Loan Performance Report</option>
+                        <option value="download_rt">Download Repay Tracker File</option>
+                        <option value="download_dbd_due">Download Day By Day Due</option>
+                        </>
+                        )
+                        : (<><option value="first_inst_date">EMI Date</option>
                         <option value="sacntion_date">Sanction Date</option>
                         <option value="loan_app_date">Loan Application Date</option>
                         <option value="disburse_date">Disburse Date</option>
                         <option value="final_approve_date">Final Approval Date</option>
-                        <option value="joining_date">Joining Date</option>
+                        <option value="joining_date">Joining Date</option></>)}
                     </select>
                 </li>
             </div>
@@ -165,12 +191,13 @@ function SearchBar(props) { //Some of the styling elements are in the css...
             <h2 style={{display:"inline"}}> Search using...</h2>
             <ul>
                 <div style={props.lidChange ? style : {display: "none"}}>
-                    <li><label>Loan ID</label><br/> <input type="text" id="srLID" value={props.inputVal.lid} onChange={props.lidChange} /></li>
+                    <li><label>{props.dname==="user_log" ? "Email ID" : "Loan ID"}</label><br/> <input type="text" id="srLID" value={props.inputVal.lid} onChange={props.lidChange} /></li>
                 </div>
-                <div style={props.fnameChange ? style : {display: "none"}}>
+                
+                {props.dname!=="user_log" && <div style={props.fnameChange ? style : {display: "none"}}>
                     <li><label>First Name</label><br/> <input type="text" id="fname" value={props.inputVal.fname} onChange={props.fnameChange} /></li>
                     <li><label>Last Name</label><br/> <input type="text" id="lname" value={props.inputVal.lname} onChange={props.lnameChange} /></li>
-                </div>
+                </div>}
 
                 {search_block}
 
@@ -196,7 +223,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
 
                    
 
-                    <div style={{
+                    {props.dname!=="user_log" && <div style={{
                         display: "inline-block",
                         textAlign: "left",
                         marginRight: "1rem",
@@ -210,7 +237,7 @@ function SearchBar(props) { //Some of the styling elements are in the css...
                             <option value="Enablecap">EnableCap</option>
                             <option value="Entitle">Entitle</option>                        
                         </select>
-                        </div>
+                        </div>}
                          {dueblock}
                     <button style={btnStl} onClick={props.hndlReset}>RESET</button>
                     <button style={btnStl} onClick={props.hndlSearch}>SEARCH</button>

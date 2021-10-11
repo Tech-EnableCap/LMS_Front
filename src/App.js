@@ -56,6 +56,9 @@ function App() {
   const onClickRepayTrack = () => {
     setSd("repay_tracker")
   }
+  const onClickLog = () => {
+    setSd("user_log")
+  }
   const isLoad = (e) => {
     setHide(!e);
   }
@@ -120,7 +123,7 @@ const convert_hex=(col_val)=>{
       setSd("ana");
     setCmp(
       () => {
-        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master" || sdBarSt === "report_status" || sdBarSt==="repay_tracker") 
+        if(sdBarSt === "dis" || sdBarSt === "dash" || sdBarSt === "bank" || sdBarSt === "equifax" || sdBarSt === "master" || sdBarSt === "report_status" || sdBarSt==="repay_tracker" || sdBarSt=="user_log") 
           return (
             <section>
               <Sidebar
@@ -133,6 +136,7 @@ const convert_hex=(col_val)=>{
               onClickStatus={onClickStatus}
               onClickRepayTrack={onClickRepayTrack}
               initcol={initcol}
+              onClickLog={onClickLog}
               />
 
               <Dashboard 
@@ -140,6 +144,7 @@ const convert_hex=(col_val)=>{
               isLoad={isLoad}
               hndlViewMore={hndlViewMore}
               initcol={initcol}
+              email={localStorage.email}
               />
              
             </section>
@@ -157,10 +162,12 @@ const convert_hex=(col_val)=>{
                 onClickStatus={onClickStatus}
                 onClickRepayTrack={onClickRepayTrack}
                 initcol={initcol}
+                onClickLog={onClickLog}
               />
               <Analysis 
               isLoad={isLoad}
-              initcol={initcol} 
+              initcol={initcol}
+              email={localStorage.email}
               />
             </section>
           );
@@ -178,9 +185,10 @@ const convert_hex=(col_val)=>{
                 onClickRepayTrack={onClickRepayTrack}
                 selectTheme={selectTheme}
                 initcol={initcol}
+                onClickLog={onClickLog}
               />
             
-              <MasterRepay lid={lid} isLoad={isLoad} initcol={initcol}/>
+              <MasterRepay lid={lid} isLoad={isLoad} initcol={initcol} email={localStorage.email}/>
             </section>
             );
         else if(sdBarSt === "login") {

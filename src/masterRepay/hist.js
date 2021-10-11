@@ -17,7 +17,8 @@ function Hist(props) {
         props.isLoad(true);
         let config = {
             "lid":props.lid,
-            "date":crDate
+            "date":crDate,
+            "email":props.email
         }
         const header = {
             Authorization: "Bearer " + localStorage.enalmsjwttkn

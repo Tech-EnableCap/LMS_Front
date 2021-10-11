@@ -18,12 +18,12 @@ function DtTable(props) {
     return (
         <div className="table" id="dashTable">
             <div className="tbHeader">
-                <label>{"dtLen" in props.Data ? props.Data["dtLen"] : "0"} entries found | Showing 20 entries per page
-                <br/>Page: {"curPage" in props.Data ? props.Data["curPage"] : "1"}/{"totPage" in props.Data ? props.Data["totPage"] : "1"}</label>
-                <label style={{fontSize:"20px"}}>{props.tbName}</label>
+                {props.dname!=="user_log" && <label>{"dtLen" in props.Data ? props.Data["dtLen"] : "0"} entries found | Showing 20 entries per page
+                <br/>Page: {"curPage" in props.Data ? props.Data["curPage"] : "1"}/{"totPage" in props.Data ? props.Data["totPage"] : "1"}</label>}
+                <label>Showing {"dtLen" in props.Data ? props.Data["dtLen"] : "0"} Logs</label><label style={{fontSize:"20px"}}>{props.tbName}</label>
                 <div className="navTable">
-                    <div className="navPrv navStl" onClick={props.handlNavPrv}><i className="fa fa-caret-left"></i></div>
-                    <div className="navNxt navStl" onClick={props.handlNavNxt}><i className="fa fa-caret-right"></i></div>
+                    {props.dname!=="user_log" && <><div className="navPrv navStl" onClick={props.handlNavPrv}><i className="fa fa-caret-left"></i></div>
+                    <div className="navNxt navStl" onClick={props.handlNavNxt}><i className="fa fa-caret-right"></i></div></>}
                     <div className="navStl" onClick={props.hndlDown}><i className="fa fa-download"></i></div>
                     <RepUp 
                     icon="fa fa-upload"
